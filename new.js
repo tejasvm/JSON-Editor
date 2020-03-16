@@ -700,11 +700,6 @@ function arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray) {
 
 }
 
-const getNestedObject = (nestedObj, pathArr) => {
-    return pathArr.reduce((obj, key) =>
-        (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
-}
-
 
 function tablePolulator(object1PathsArray, object2PathsArray, object1ValuesArray, object2ValuesArray, tableOne, tableTwo) {
     object1PathsArray.forEach((element, index) => {

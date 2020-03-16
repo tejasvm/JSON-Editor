@@ -1,6 +1,14 @@
 let obj1;
 let obj2;
+let flag;
 let startFlag;
+let baseObjPaths;
+let compareObjPaths;
+let baseObjValues;
+let compareObjValues;
+let baseTable;
+let compareTable;
+
 function onChangeFileOne(event) {
     let reader = new FileReader();
     reader.onload = onReaderLoadFileOne;
@@ -39,20 +47,20 @@ function onReaderLoadFileTwo(event) {
 function setBaseFile() {
     if (firstFileRadio.checked == true) {
         flag = true;
-        value1 = object1Paths;
-        value2 = object2Paths;
-        value3 = object1Values;
-        value4 = object2Values;
-        value5 = firstTable;
-        value6 = secondTable;
+        baseObjPaths = object1Paths;
+        compareObjPaths = object2Paths;
+        baseObjValues = object1Values;
+        compareObjValues = object2Values;
+        baseTable = firstTable;
+        compareTable = secondTable;
     } else if (secondFileRadio.checked == true) {
         flag = true;
-        value1 = object2Paths;
-        value2 = object1Paths;
-        value3 = object2Values;
-        value4 = object1Values;
-        value5 = secondTable;
-        value6 = firstTable;
+        baseObjPaths = object2Paths;
+        compareObjPaths = object1Paths;
+        baseObjValues = object2Values;
+        compareObjValues = object1Values;
+        baseTable = secondTable;
+        compareTable = firstTable;
     }
 }
 
@@ -63,5 +71,12 @@ export {
     setBaseFile,
     obj1,
     obj2,
-    startFlag
+    startFlag,
+    flag,
+    baseObjPaths,
+    compareObjPaths,
+    baseObjValues,
+    compareObjValues,
+    baseTable,
+    compareTable
 };
