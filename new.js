@@ -651,7 +651,7 @@ function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
 
 const isObject = obj => obj === Object(obj);
 
-valueCreator = function (obj, path, pathsArray, valuesArray) {
+function valueCreator(obj, path, pathsArray, valuesArray) {
     path = path || "";
     let objKeys = Object.keys(obj);
     objKeys.forEach(key => {
