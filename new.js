@@ -653,46 +653,34 @@ const isObject = obj => obj === Object(obj);
 
 valueCreator = function (obj, path, pathsArray, valuesArray) {
     path = path || "";
-    //let objKeys = Object.keys(obj);
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
+    let objKeys = Object.keys(obj);
+    objKeys.forEach(key => {
             let currentKey = key;
             let currentValue = obj[currentKey];
             if (Array.isArray(currentValue)) {
                 arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray)
-            } else if (isObject(currentValue) && currentValue != null) {
+            } else if (isObject(currentValue)) {
                 objProcess(currentKey, currentValue, path, pathsArray, valuesArray, false)
+            } else if (currentValue == null && path == "") {
+                pathsArray.push(currentKey)
+                valuesArray.push("")
             } else if (currentValue == null) {
-                if (path == "") {
-                    //createTableRows(currentKey, "null")
-                    pathsArray.push(currentKey)
-                    valuesArray.push("")
-                } else {
-                    prevPath = path;
-                    path = path + '.' + currentKey;
-                    //createTableRows(path, "null")
-                    pathsArray.push(path)
-                    valuesArray.push("")
-                    path = prevPath;
-                }
+                prevPath = path;
+                path = path + '.' + currentKey;
+                pathsArray.push(path)
+                valuesArray.push("")
+                path = prevPath;
+            } else if (path == "") {
+                pathsArray.push(currentKey)
+                valuesArray.push(currentValue)
             } else {
-                if (path == "") {
-                    pathsArray.push(currentKey)
-                    valuesArray.push(currentValue)
-                    //createTableRows(currentKey, currentValue)
-
-                } else {
-                    prevPath = path;
-                    path = path + '.' + currentKey;
-                    pathsArray.push(path)
-                    valuesArray.push(currentValue)
-                    //createTableRows(path, currentValue);
-                    path = prevPath;
-                }
+                prevPath = path;
+                path = path + '.' + currentKey;
+                pathsArray.push(path)
+                valuesArray.push(currentValue)
+                path = prevPath;
             }
-        }
-
-    }
+    });
 }
 
 function objProcess(currentKey, currentValue, path, pathsArray, valuesArray, flag) {
