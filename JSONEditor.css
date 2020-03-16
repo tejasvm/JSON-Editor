@@ -1,0 +1,164 @@
+.buttonDiv button{
+    margin-right:1%;
+}
+.searchBtn{
+    margin-left: 1%;
+}
+.searchfield{
+    margin-left: 1%;
+}
+.searchDropdown{
+    margin-left: 36%;
+}
+.firstFileSelect{
+    margin-left: 7.5%;
+}
+.secondFileSelect{
+    margin-left: 35.5%;
+}
+.firstCheckDiv{
+    float: left;
+    margin-left: 7.5%;
+}
+.secondCheckDiv{
+    float: left;
+    margin-left: 39.5%;
+}
+.tableDiv{
+    width: auto;
+    height: 39.37%;
+    
+}
+.buttonDivTwo{
+    float: bottom;
+}
+.FirstTableDiv{
+    border: 1px solid black;
+    width: 47.5%;
+    height: 560px;
+    float: left;
+    overflow: scroll;
+
+}
+.SecondTableDiv{
+    border: 1px solid black;
+    width: 47.5%;
+    height:560px;
+    float: right;
+    overflow: scroll;
+}
+.scrollDiv{
+    width: 50px;
+    height: 600px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    float: left;
+    transform: translate(-55%, -21%);
+}
+.scrollCheck{
+    margin-left: 14px ;
+}
+.scrollCheckLabel{
+    text-align: center;
+}
+.errorDiv, .fileError, .checkBoxError{
+    display: none;
+    text-align: center;
+ }
+ 
+ p{
+     text-align: center;
+     color: red;
+ }
+
+table{
+    background-color: #eee;
+    color: black;
+    padding: 12px;
+    text-decoration: none;
+    width: 725px;
+    border-collapse: collapse;
+}
+
+tr{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+td,th{
+    height: 25px;
+    padding: 8px;
+    border-collapse:collapse;
+  }
+  
+.active {
+    background-color: purple;
+    color: white;
+}
+.red {
+    background-color: red;
+    color: white;
+}
+.green {
+    background-color: green;
+    color: white;
+}
+.blue {
+    background-color:blue;
+    color: white;
+}
+
+.startbtn, .rightBtn, .leftBtn,.allRightBtn,.allLeftBtn{
+    width: 100%;
+    height: 5%;
+}
+
+#popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* The actual popup */
+  #popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+ 
+  
+  /* Toggle this class - hide and show the popup */
+  #popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
