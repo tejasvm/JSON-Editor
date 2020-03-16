@@ -469,12 +469,12 @@ function lastDiffFunc() {
 }
 
 function starter() {
-    setBaseFile();
     if (startFlag == true) {
         valueCreator(obj1, "", object1Paths, object1Values);
         valueCreator(obj2, "", object2Paths, object2Values);
         startFlag = false;
     }
+    setBaseFile();
     if (value1 != null && value2 != null && flag == true) {
         rightButton.disabled = false;
         leftButton.disabled = false;

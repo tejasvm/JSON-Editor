@@ -1,4 +1,5 @@
 import * as utils from "./modules/utils.js";
+import * as fileReader from "./modules/fileReader.js"
 
 const body = document.querySelector('body');
 const br = utils.domElementCreator('br');
@@ -83,9 +84,6 @@ let allMoveLeftArray = [];
 let found = 0,
     searchFlag = 0;
 let tableHeadings = ["<b>Path</b>", "<b>Value</b>"]
-let obj1;
-let obj2;
-let startFlag;
 let prevclassRowOne;
 let prevclassRowTwo;
 let path;
@@ -94,3 +92,7 @@ let object2Paths = [];
 let object1Values = [];
 let object2Values = [];
 let diffArray = [];
+
+firstFileSelect.addEventListener('change', fileReader.onChangeFileOne);
+secondFileSelect.addEventListener('change', fileReader.onChangeFileTwo);
+
