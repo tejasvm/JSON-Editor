@@ -51,7 +51,7 @@ let buttonDivTwo = domElement("div", "", ["class"], ["buttonDivTwo"]);
 let firstTableMatch=domElement("p", "Total matches in first table: ", [], []);
 let secondTableMatch=domElement("p", "Total matches in second table: ", [], []);
 
-let value1, value2, value3, value4, value5, value6, flag,searchValue,prevSearch,continueFlag=false;
+let value1, value2, value3, value4, value5, value6, flag,searchValue,prevSearch,continueFlag;
 let selectedValues = [];
 let allMoveRightArray = [];
 let allMoveLeftArray = [];

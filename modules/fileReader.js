@@ -1,13 +1,10 @@
+import * as domElement from './domElements.js';
+
 let obj1;
 let obj2;
-let flag;
 let startFlag;
-let baseObjPaths;
-let compareObjPaths;
-let baseObjValues;
-let compareObjValues;
-let baseTable;
-let compareTable;
+
+
 
 function onChangeFileOne(event) {
     let reader = new FileReader();
@@ -44,39 +41,12 @@ function onReaderLoadFileTwo(event) {
     startFlag = true;
 }
 
-function setBaseFile() {
-    if (firstFileRadio.checked == true) {
-        flag = true;
-        baseObjPaths = object1Paths;
-        compareObjPaths = object2Paths;
-        baseObjValues = object1Values;
-        compareObjValues = object2Values;
-        baseTable = firstTable;
-        compareTable = secondTable;
-    } else if (secondFileRadio.checked == true) {
-        flag = true;
-        baseObjPaths = object2Paths;
-        compareObjPaths = object1Paths;
-        baseObjValues = object2Values;
-        compareObjValues = object1Values;
-        baseTable = secondTable;
-        compareTable = firstTable;
-    }
-}
 
 
 export {
     onChangeFileOne,
     onChangeFileTwo,
-    setBaseFile,
     obj1,
     obj2,
-    startFlag,
-    flag,
-    baseObjPaths,
-    compareObjPaths,
-    baseObjValues,
-    compareObjValues,
-    baseTable,
-    compareTable
+    startFlag
 };

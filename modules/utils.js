@@ -1,4 +1,6 @@
- function domElementCreator(type, textContent, attributeObject) {
+let path;
+let prevPath;
+function domElementCreator(type, textContent, attributeObject) {
      let element = document.createElement(type);
      element.textContent = textContent;
      if (attributeObject != null) {
@@ -51,6 +53,8 @@
     });
 }
 
+const isObject = obj => obj === Object(obj);
+
 function objProcess(currentKey, currentValue, path, pathsArray, valuesArray, flag) {
     if (flag == true) {
         path = path + '[' + currentKey + ']';
@@ -68,8 +72,18 @@ function arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray) {
 
 }
 
+function resetFileDiv() {
+    fileDiv.style.display = "block";
+    errorDiv.style.display = "none";
+    fileErrorMsg.style.display = "none";
+    checkBoxErrorMsg.style.display = "none";
+    firstFileSelect.value = "";
+    secondFileSelect.value = "";
+}
+
  export {
      domElementCreator,
      appendToNode,
-     valueCreator
+     valueCreator,
+     resetFileDiv
  };

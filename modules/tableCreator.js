@@ -1,6 +1,9 @@
 let diffArray = [];
 let allMoveRightArray = [];
 let allMoveLeftArray = [];
+let selectedValues = [];
+let tableOneKeyIndex = 1;
+let tableTwoKeyIndex = 1;
 
 function createTableWithHeadings(tableName, tableHeadings) {
     var row = tableName.insertRow(0);
@@ -41,10 +44,92 @@ function tablePolulator(object1PathsArray, object2PathsArray, object1ValuesArray
     diffArray = allMoveRightArray.concat(allMoveLeftArray);
 }
 
+
+
+
+function createTableRows(tableName, key, value, type) {
+    //console.log("row")
+    if (tableName == "firstTable") {
+        row = tableName.insertRow(tableOneKeyIndex);
+        row.insertCell(0).innerHTML = key;
+        row.insertCell(1).innerHTML = value;
+        //row.setAttribute('id', tableIndex);
+        row.setAttribute('class', type);
+        row.setAttribute('id', `${"firstTable"+tableOneKeyIndex}`)
+        row.onclick = function () {
+            selectedRowsFunction(this)
+        }
+        tableOneKeyIndex++;
+    } else {
+        row = tableName.insertRow(tableTwoKeyIndex);
+        row.insertCell(0).innerHTML = key;
+        row.insertCell(1).innerHTML = value;
+        //row.setAttribute('id', tableIndex);
+        row.setAttribute('class', type);
+        row.setAttribute('id', `${"secondTable"+ tableTwoKeyIndex}`)
+        row.onclick = function () {
+            selectedRowsFunction(this)
+        }
+        tableTwoKeyIndex++;
+    }
+}
+
+function selectedRowsFunction(row) {
+    id = row.getAttribute("id");
+    selectedValues.push(id);
+    tableTwoId = id.replace("firstTable", "secondTable");
+    tableOneId = id.replace("secondTable", "firstTable");
+    rowTableOne = document.getElementById(tableOneId);
+    rowTableTwo = document.getElementById(tableTwoId);
+    diffArrayIndex = diffArray.indexOf(tableOneId) || diffArray.indexOf(tableTwoId);
+    prevclassRowOne = rowTableOne.getAttribute("class");
+    prevclassRowTwo = rowTableTwo.getAttribute("class");
+    rowTableOne.removeAttribute("class");
+    rowTableOne.setAttribute("class", "active")
+    rowTableOne.onclick = function () {
+        deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
+    }
+    rowTableTwo.removeAttribute("class");
+    rowTableTwo.setAttribute("class", "active")
+    rowTableTwo.onclick = function () {
+        deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
+    }
+}
+
+function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
+    id = row.getAttribute("id");
+    let index = selectedValues.indexOf(id);
+    if (index > -1) {
+        selectedValues.splice(selectedValues, 1);
+    }
+    tableTwoId = id.replace("firstTable", "secondTable");
+    tableOneId = id.replace("secondTable", "firstTable");
+    rowTableOne = document.getElementById(tableOneId);
+    rowTableTwo = document.getElementById(tableTwoId);
+    diffArrayIndex = -1;
+    if (temparray.length) {
+        temparray[0].style.border = null;
+        temparray[1].style.border = null;
+    }
+    rowTableOne.removeAttribute("class");
+    rowTableOne.setAttribute("class", prevclassRowOne)
+    rowTableTwo.removeAttribute("class");
+    rowTableTwo.setAttribute("class", prevclassRowTwo)
+    rowTableOne.onclick = function () {
+        selectedRowsFunction(this)
+    }
+    rowTableTwo.onclick = function () {
+        selectedRowsFunction(this)
+    }
+}
+
 export{
     createTableWithHeadings,
     tablePolulator,
     diffArray,
     allMoveLeftArray,
-    allMoveRightArray
+    allMoveRightArray,
+    tableTwoKeyIndex,
+    tableOneKeyIndex,
+    selectedValues
 }
