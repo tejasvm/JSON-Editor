@@ -76,7 +76,7 @@ function starter() {
         startFlag = false;
     }
     setBaseFile();
-    if (value1 != null && value2 != null && flag == true) {
+    if (baseObjPaths != null && compareObjPaths != null && flag == true) {
         rightButton.disabled = false;
         leftButton.disabled = false;
         allRightButton.disabled = false;
