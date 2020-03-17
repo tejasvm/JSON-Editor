@@ -1,61 +1,96 @@
-let body = document.querySelector("body");
-let br = domElement("br"),
-    hr = domElement("hr");
-let firstDiff = domElement("button", "First Difference", ["class"], ["firstDiffbtn"]);
-let nextDiff = domElement("button", "Next Difference", ["class"], ["nextDiffbtn"]);
-let prevDiff = domElement("button", "Previous Difference", ["class"], ["prevDiffbtn"]);
-let lastDiff = domElement("button", "Last Difference", ["class"], ["lastDiffbtn"]);
-let searchBtn = domElement("button", "Search", ["class", "disabled"], ["searchBtn", "true"]);
-let clear = domElement("button", "Clear", ["class", "disabled"], ["clearbtn", "true"]);
-let buttonDiv = domElement("div", "", ["class","id"], ["buttonDiv","popup"]);
-let popSpan=domElement("span", "", ["class","id"], ["popuptext","myPopup"]);
-let popLabel=domElement("label", "");
-let yesButton= domElement("button", "Yes", ["class"], ["yesButton"]);
-let noButton= domElement("button", "No", ["class"], ["noButton"]);
-let input = domElement("input", "", ["type", "placeholder", "name", "class"], ["text", "Search Property", "search", "searchfield"]);
-let firstFileSelect = domElement("input", "", ["type", "class", "accept"], ["file", "firstFileSelect", ".json"]);
-let secondFileSelect = domElement("input", "", ["type", "class", "accept"], ["file", "secondFileSelect", ".json"]);
-let checkboxDiv = domElement("div", "", ["class"], ["checkboxDiv"]);
-let firstCheckDiv = domElement("div", "", ["class"], ["firstCheckDiv"]);
-let secondCheckDiv = domElement("div", "", ["class"], ["secondCheckDiv"]);
-let firstFileRadio = domElement("input", "", ["type", "class", "name"], ["radio", "firstFileRadio", "fileSelect"]);
-let checklabel = domElement("label", "Click to make this base");
-let secondFileRadio = domElement("input", "", ["type", "class", "name"], ["radio", "secondFileRadio", "fileSelect"]);
-let tableDiv = domElement("div", "", ["class"], ["tableDiv"]);
-let firstTableDiv = domElement("div", "", ["class"], ["FirstTableDiv"]);
-let secondTableDiv = domElement("div", "", ["class"], ["SecondTableDiv"]);
-let scrollDiv = domElement("div", "", ["class"], ["scrollDiv"]);
-let firstTable = domElement("table", "", ["class"], ["firstTable"]);
-let secondTable = domElement("table", "", ["class"], ["secondTable"]);
-let rightButton = domElement("button", ">", ["class", "disabled"], ["rightBtn", "true"]);
-let leftButton = domElement("button", "<", ["class", "disabled"], ["leftBtn", "true"]);
-let allRightButton = domElement("button", ">>", ["class", "disabled"], ["allRightBtn", "true"]);
-let allLeftButton = domElement("button", "<<", ["class", "disabled"], ["allLeftBtn", "true"]);
-let startButton = domElement("button", "Start", ["class"], ["startbtn"]);
-let scrollCheck = domElement("input", "", ["type", "class"], ["checkbox", "scrollCheck"]);
-let scrollCheckLabel = domElement("label", "Sync", ["class"], ["scrollCheckLabel"]);
-let fileDiv = domElement("div", "", ["class"], ["fileDiv"]);
-let errorDiv = domElement("div", "", ["class"], ["errorDiv"]);
-let fileErrorMsg = domElement("p", "File type not supported. Please try again", ["class"], ["fileError"]);
-let checkBoxErrorMsg = domElement("p", "Checkbox hasn't been selected. Please try again", ["class"], ["checkBoxError"]);
-let retry = domElement("button", "Retry", ["class"], ["retry"]);
-let searchDropdown = domElement("select", "", ["class"], ["searchDropdown"]);
-let optionOne = domElement("option", "Search by Key", ["value"], ["searchKey"]);
-let optionTwo = domElement("option", "Search by Value", ["value"], ["searchValue"]);
-let emptySearch = domElement("p", "Provide input", ["class"], ["emptySearch"]);
-let noMatch = domElement("p", "No match found", ["class"], ["noMatchMsg"]);
-// codee added
-let saveRightFile = domElement("button", "Save Right File", ["class"], ["saveRightFile"]);
-let saveLeftFile = domElement("button", "Save Left File", ["class"], ["saveLeftFile"]);
-let buttonDivTwo = domElement("div", "", ["class"], ["buttonDivTwo"]);
-let firstTableMatch=domElement("p", "Total matches in first table: ", [], []);
-let secondTableMatch=domElement("p", "Total matches in second table: ", [], []);
+const body = document.querySelector('body');
+const br = domElementCreator('br');
+const hr = domElementCreator('hr');
+const firstDiff = domElementCreator("button", "First Difference", { class: "firstDiffbtn", disabled: "true" });
+const nextDiff = domElementCreator("button", "Next Difference", { class: "nextDiffbtn", disabled: "true" });
+const prevDiff = domElementCreator("button", "Previous Difference", { class: "prevDiffbtn", disabled: "true" });
+const lastDiff = domElementCreator("button", "Last Difference", { class: "lastDiffbtn", disabled: "true" });
+const searchBtn = domElementCreator("button", "Search", { class: "searchBtn", disabled: "true" });
+const clear = domElementCreator("button", "Clear", { class: "clearbtn", disabled: "true" });
+const buttonDiv = domElementCreator("div", "", { class: "buttonDiv", id: "popup" });
+const popSpan = domElementCreator("span", "", { class: "popuptext", id: "myPopup" });
+const popLabel = domElementCreator("label", "");
+const yesButton = domElementCreator("button", "Yes", { class: "yesButton" });
+const noButton = domElementCreator("button", "No", { class: "noButton" });
+const input = domElementCreator("input", "", { class: "searchfield", type: "text", placeholder: "Search Property", name: "search" });
+const firstFileSelect = domElementCreator("input", "", { class: "firstFileSelect", type: "file", accept: ".json" });
+const secondFileSelect = domElementCreator("input", "", { class: "secondFileSelect", type: "file", accept: ".json" });
+const checkboxDiv = domElementCreator("div", "", { class: "checkboxDiv" });
+const firstCheckDiv = domElementCreator("div", "", { class: "firstCheckDiv" });
+const secondCheckDiv = domElementCreator("div", "", { class: "secondCheckDiv" });
+const firstFileRadio = domElementCreator("input", "", { class: "firstFileRadio", type: "radio", name: "fileSelect", checked: "true" });
+const checklabel = domElementCreator("label", "Click to make this base");
+const secondFileRadio = domElementCreator("input", "", { class: "secondFileRadio", type: "radio", name: "fileSelect" });
+const tableDiv = domElementCreator("div", "", { class: "tableDiv" });
+const firstTableDiv = domElementCreator("div", "", { class: "FirstTableDiv" });
+const secondTableDiv = domElementCreator("div", "", { class: "SecondTableDiv" });
+const scrollDiv = domElementCreator("div", "", { class: "scrollDiv" });
+const firstTable = domElementCreator("table", "", { class: "firstTable" });
+const secondTable = domElementCreator("table", "", { class: "secondTable" });
+const rightButton = domElementCreator("button", ">", { class: "rightBtn", disabled: "true" });
+const leftButton = domElementCreator("button", "<", { class: "leftBtn", disabled: "true" });
+const allRightButton = domElementCreator("button", ">>", { class: "allRightBtn", disabled: "true" });
+const allLeftButton = domElementCreator("button", "<<", { class: "allLeftBtn", disabled: "true" });
+const startButton = domElementCreator("button", "Start", { class: "startbtn" });
+const scrollCheck = domElementCreator("input", "", { class: "scrollCheck", type: "checkbox" });
+const scrollCheckLabel = domElementCreator("label", "Sync", { class: "scrollCheckLabel" });
+const fileDiv = domElementCreator("div", "", { class: "fileDiv" });
+const errorDiv = domElementCreator("div", "", { class: "errorDiv" });
+const fileErrorMsg = domElementCreator("p", "File type not supported. Please try again", { class: "fileError" });
+const checkBoxErrorMsg = domElementCreator("p", "Checkbox hasn't been selected. Please try again", { class: "checkBoxError" });
+const retry = domElementCreator("button", "Retry", { class: "retry" });
+const searchDropdown = domElementCreator("select", "", { class: "searchDropdown" });
+const optionOne = domElementCreator("option", "Search by Key", { value: "searchKey" });
+const optionTwo = domElementCreator("option", "Search by Value", { value: "searchValue" });
+const emptySearch = domElementCreator("p", "Provide input", { class: "emptySearch" });
+const noMatch = domElementCreator("p", "No match found", { class: "noMatchMsg" });
+// code added
+const saveRightFile = domElementCreator("button", "Save Right File", { class: "saveRightFile" });
+const saveLeftFile = domElementCreator("button", "Save Left File", { class: "saveLeftFile" });
+const buttonDivTwo = domElementCreator("div", "", { class: "buttonDivTwo" });
+const firstTableMatch = domElementCreator("p", "Total matches in first table: ");
+const secondTableMatch = domElementCreator("p", "Total matches in second table: ");
 
-let value1, value2, value3, value4, value5, value6, flag,searchValue,prevSearch,continueFlag=false;
+
+//modal creation
+const modal = domElementCreator("div", "", { class: "modal", id: "alertModal" });
+const modalContent = domElementCreator("div", "", { class: "modal-content" });
+const modalHeader = domElementCreator("div", "", { class: "modal-header" });
+const modalBody = domElementCreator("div", "", { class: "modal-body" });
+const modalFooter = domElementCreator("div", "", { class: "modal-footer" });
+
+const closeSign = domElementCreator("span", "x", { class: "close" });
+const modalHeading = domElementCreator("h2", "ALert", {});
+const modalText = domElementCreator("h2", "", {});
+
+const proceedButton = domElementCreator("button", "Proceed", { class: "modalProceed" });
+const cancelButton = domElementCreator("button", "Cancel", { class: "modalCancel" });
+
+
+closeSign.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+appendToNode(modalHeader, [closeSign, modalHeading]);
+appendToNode(modalBody, [modalText]);
+appendToNode(modalFooter, [proceedButton, cancelButton]);
+appendToNode(modalContent, [modalHeader, modalBody, modalFooter]);
+appendToNode(modal, [modalContent]);
+//changes end
+
+let value1, value2, value3, value4, value5, value6, flag, searchValue, prevSearch, continueFlag = false;
 let selectedValues = [];
 let allMoveRightArray = [];
 let allMoveLeftArray = [];
-let found = 0, searchFlag = 0;
+let found = 0,
+    searchFlag = 0;
 let tableHeadings = ["<b>Path</b>", "<b>Value</b>"]
 let obj1;
 let obj2;
@@ -94,36 +129,37 @@ prevDiff.addEventListener("click", prevDiffFunc);
 lastDiff.addEventListener("click", lastDiffFunc)
 retry.addEventListener("click", resetFileDiv);
 scrollCheck.addEventListener("click", overflowdisable);
-searchBtn.addEventListener("click",function(){
-    searchValue=input.value;
+searchBtn.addEventListener("click", function() {
+    searchValue = input.value;
     search(searchValue);
 });
-clear.addEventListener("click",function(){
-    searchValue=input.value;
+clear.addEventListener("click", function() {
+    searchValue = input.value;
     clearSearch(searchValue);
 });
 firstFileSelect.addEventListener('change', onChangeFileOne);
 secondFileSelect.addEventListener('change', onChangeFileTwo);
-yesButton.addEventListener("click",function(){
-    if(continueFlag == "prevDiffFunc"){
+proceedButton.addEventListener("click", function() {
+    if (continueFlag == "prevDiffFunc") {
         diffArrayIndex = diffArray.length;
         prevDiffFunc();
-    }else if(continueFlag == "nextDiffFunc"){
+    } else if (continueFlag == "nextDiffFunc") {
         diffArrayIndex = -1;
         nextDiffFunc();
     }
-    popSpan.classList.toggle("show");
+    modal.style.display = "none"; //changes
+    modalText.textContent = ""; //changes
 });
 
-noButton.addEventListener("click",function(){
-    continueFlag=false;
-    popSpan.classList.toggle("show");
+cancelButton.addEventListener("click", function() {
+    continueFlag = false;
+    modal.style.display = "none"; //changes
+    modalText.textContent = ""; //changes
 });
-input.addEventListener("click", function () {
+input.addEventListener("click", function() {
     emptySearch.style.display = "none";
 });
 
-appendToNode(popSpan, [popLabel,yesButton,noButton]);
 
 //Appends the left and right JSON display frames to the DOM
 appendToNode(firstTableDiv, [firstTable]);
@@ -137,24 +173,21 @@ appendToNode(secondCheckDiv, [secondFileRadio, checklabel.cloneNode(true)]);
 appendToNode(checkboxDiv, [firstCheckDiv, secondCheckDiv]);
 appendToNode(tableDiv, [firstTableDiv, scrollDiv, secondTableDiv]);
 appendToNode(searchDropdown, [optionOne, optionTwo]);
-appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff,popSpan, searchDropdown, input, searchBtn, clear, noMatch, emptySearch,firstTableMatch,secondTableMatch]);
+appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown, input, searchBtn, clear, firstTableMatch, secondTableMatch]);
 appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
-appendToNode(body, [buttonDiv, hr, fileDiv, errorDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]);
+appendToNode(body, [modal, buttonDiv, hr, fileDiv, errorDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]); //change
 appendToNode(scrollDiv, [startButton, br.cloneNode(true), br.cloneNode(true), rightButton, br.cloneNode(true), br.cloneNode(true), allRightButton, br.cloneNode(true), br.cloneNode(true), leftButton, br.cloneNode(true), br.cloneNode(true), allLeftButton, br.cloneNode(true), br.cloneNode(true), scrollCheckLabel, scrollCheck]);
 
-function domElement(type, textContent, attributeName, attributeValue) {         //use object instead arrays
+function domElementCreator(type, textContent, attributeObject) {
     let element = document.createElement(type);
     element.textContent = textContent;
-    if (attributeName == "" || attributeName == undefined || attributeValue == "" || attributeValue == undefined) {
-        return element;
-    } else {
-        if (attributeName.length == attributeValue.length) {
-            attributeName.forEach((name, index) => {
-                element.setAttribute(name, attributeValue[index]);
-            });
-        }
-        return element;
+    if (attributeObject != null) {
+        let attributeKeys = Object.keys(attributeObject);
+        attributeKeys.forEach(attribute => {
+            element.setAttribute(attribute, attributeObject[attribute]);
+        });
     }
+    return element;
 }
 
 function saveRightFileFunc() {
@@ -209,9 +242,8 @@ function appendToNode(node, elements) {
         node.appendChild(elements);
 }
 
+//complexity changes for search
 function search(srcValue) {
-    console.log(srcValue);
-    console.log(prevSearch);
     let tableOneCount = 0;
     let tableTwoCount = 0;
     if (srcValue !== "") {
@@ -219,11 +251,7 @@ function search(srcValue) {
             console.log("reached here");
             clearSearch(prevSearch);
         }
-        if (searchDropdown.value == "searchKey") {
-            cellIndex = 0;
-        } else {
-            cellIndex = 1;
-        }
+        searchDropdown.value == "searchKey" ? cellIndex = 0 : cellIndex = 1;
         let allTables = [firstTable, secondTable];
         allTables.forEach(table => {
             let test = table.tBodies[0].children;
@@ -235,24 +263,18 @@ function search(srcValue) {
                     splitArray = searchString.split(srcValue);
                     let resultPath = "";
                     splitArray.forEach((element, index) => {
-                        if (index == 0) {
-                            resultPath += element;
-                        } else {
-                            resultPath += "<mark>" + srcValue + "</mark>" + element;
-                        }
+                        index == 0 ? resultPath += element : resultPath += "<mark>" + srcValue + "</mark>" + element;
                     });
                     row.innerHTML = resultPath;
                     found = 1;
-                    if (table == firstTable) {
-                        tableOneCount += 1;
-                    } else if (table == secondTable) {
-                        tableTwoCount += 1;
-                    }
+                    table == firstTable ? tableOneCount += 1 : tableTwoCount += 1;
                 }
             }
         });
         if (found == 0) {
-            noMatch.style.display = "block";
+            modalText.textContent = "";
+            modalText.textContent = "No match found";
+            modal.style.display = "block";
         } else {
             if (firstTableMatch.style.display == "none" && secondTableMatch.style.display == "none") {
                 firstTableMatch.style.display = "block";
@@ -264,19 +286,18 @@ function search(srcValue) {
         prevSearch = srcValue;
         searchFlag = 1;
     } else {
-        console.log("else of dearch method")
-        emptySearch.style.display = "block";
+        console.log("else of dearch method");
+        modalText.textContent = "";
+        modalText.textContent = "Please provide input";
+        modal.style.display = "block";
         searchFlag = 1;
     }
 }
 
+//complexity changes for clearSearch
 function clearSearch(srcValue) {
     if (srcValue !== "") {
-        if (searchDropdown.value == "searchKey") {
-            cellIndex = 0;
-        } else {
-            cellIndex = 1;
-        }
+        searchDropdown.value == "searchKey" ? cellIndex = 0 : cellIndex = 1;
         let allTables = [firstTable, secondTable];
         allTables.forEach(table => {
             let test = table.tBodies[0].children;
@@ -288,11 +309,7 @@ function clearSearch(srcValue) {
                     splitArray = searchString.split(srcValue);
                     let resultPath = "";
                     splitArray.forEach((element, index) => {
-                        if (index == 0) {
-                            resultPath += element;
-                        } else {
-                            resultPath += srcValue + element;
-                        }
+                        index == 0 ? resultPath += element : resultPath += srcValue + element;
                     });
                     row.innerHTML = resultPath;
                 }
@@ -407,13 +424,13 @@ function nextDiffFunc() {
             });
         });
     } else {
-        popLabel.innerHTML = "End of the file reached. Do you want to continue:";
+        modalText.textContent = "End of the file reached. Do you want to continue:";
         continueFlag = "nextDiffFunc";
-        popSpan.classList.toggle("show");
-        }
+        modal.style.display = "block";
     }
+}
 
-
+//complexity changes for prevDiffFunc
 function prevDiffFunc() {
     diffArrayIndex--;
     if (diffArrayIndex < diffArray.length && diffArrayIndex > -1) {
@@ -422,16 +439,12 @@ function prevDiffFunc() {
         rowTableOne = document.getElementById(tableOneId);
         rowTableTwo = document.getElementById(tableTwoId);
         if (temparray.length) {
-            console.log(temparray);
             temparray[0].style.border = null;
             temparray[1].style.border = null;
-            temparray.shift();
-            temparray.shift();
+            temparray.splice(0, 2);
         }
-        rowTableOne.style.border = "thick solid #0000FF";
-        rowTableTwo.style.border = "thick solid #0000FF";
-        temparray.push(rowTableOne)
-        temparray.push(rowTableTwo)
+        rowTableOne.style.border = rowTableTwo.style.border = "thick solid #0000FF";
+        temparray.push(rowTableOne, rowTableTwo);
         temparray.forEach(element => {
             element.classList.add('active');
             element.scrollIntoView({
@@ -440,9 +453,9 @@ function prevDiffFunc() {
             });
         });
     } else {
-        popLabel.innerHTML = "Top of the file reached. Do you want to continue:";
+        modalText.textContent = "Top of the file reached. Do you want to continue:";
         continueFlag = "prevDiffFunc";
-        popSpan.classList.toggle("show");
+        modal.style.display = "block";
     }
 }
 
@@ -582,7 +595,7 @@ function createTableRows(tableName, key, value, type) {
         //row.setAttribute('id', tableIndex);
         row.setAttribute('class', type);
         row.setAttribute('id', `${"firstTable"+tableOneKeyIndex}`)
-        row.onclick = function () {
+        row.onclick = function() {
             selectedRowsFunction(this)
         }
         tableOneKeyIndex++;
@@ -593,7 +606,7 @@ function createTableRows(tableName, key, value, type) {
         //row.setAttribute('id', tableIndex);
         row.setAttribute('class', type);
         row.setAttribute('id', `${"secondTable"+ tableTwoKeyIndex}`)
-        row.onclick = function () {
+        row.onclick = function() {
             selectedRowsFunction(this)
         }
         tableTwoKeyIndex++;
@@ -612,12 +625,12 @@ function selectedRowsFunction(row) {
     prevclassRowTwo = rowTableTwo.getAttribute("class");
     rowTableOne.removeAttribute("class");
     rowTableOne.setAttribute("class", "active")
-    rowTableOne.onclick = function () {
+    rowTableOne.onclick = function() {
         deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
     }
     rowTableTwo.removeAttribute("class");
     rowTableTwo.setAttribute("class", "active")
-    rowTableTwo.onclick = function () {
+    rowTableTwo.onclick = function() {
         deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
     }
 }
@@ -641,58 +654,46 @@ function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
     rowTableOne.setAttribute("class", prevclassRowOne)
     rowTableTwo.removeAttribute("class");
     rowTableTwo.setAttribute("class", prevclassRowTwo)
-    rowTableOne.onclick = function () {
+    rowTableOne.onclick = function() {
         selectedRowsFunction(this)
     }
-    rowTableTwo.onclick = function () {
+    rowTableTwo.onclick = function() {
         selectedRowsFunction(this)
     }
 }
 
 const isObject = obj => obj === Object(obj);
 
-valueCreator = function (obj, path, pathsArray, valuesArray) {
+function valueCreator(obj, path, pathsArray, valuesArray) {
     path = path || "";
-    //let objKeys = Object.keys(obj);
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            let currentKey = key;
-            let currentValue = obj[currentKey];
-            if (Array.isArray(currentValue)) {
-                arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray)
-            } else if (isObject(currentValue) && currentValue != null) {
-                objProcess(currentKey, currentValue, path, pathsArray, valuesArray, false)
-            } else if (currentValue == null) {
-                if (path == "") {
-                    //createTableRows(currentKey, "null")
-                    pathsArray.push(currentKey)
-                    valuesArray.push("")
-                } else {
-                    prevPath = path;
-                    path = path + '.' + currentKey;
-                    //createTableRows(path, "null")
-                    pathsArray.push(path)
-                    valuesArray.push("")
-                    path = prevPath;
-                }
-            } else {
-                if (path == "") {
-                    pathsArray.push(currentKey)
-                    valuesArray.push(currentValue)
-                    //createTableRows(currentKey, currentValue)
-
-                } else {
-                    prevPath = path;
-                    path = path + '.' + currentKey;
-                    pathsArray.push(path)
-                    valuesArray.push(currentValue)
-                    //createTableRows(path, currentValue);
-                    path = prevPath;
-                }
-            }
+    let objKeys = Object.keys(obj);
+    objKeys.forEach(key => {
+        let currentKey = key;
+        let currentValue = obj[currentKey];
+        if (Array.isArray(currentValue)) {
+            arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray)
+        } else if (isObject(currentValue)) {
+            objProcess(currentKey, currentValue, path, pathsArray, valuesArray, false)
+        } else if (currentValue == null && path == "") {
+            pathsArray.push(currentKey)
+            valuesArray.push("")
+        } else if (currentValue == null) {
+            prevPath = path;
+            path = path + '.' + currentKey;
+            pathsArray.push(path)
+            valuesArray.push("")
+            path = prevPath;
+        } else if (path == "") {
+            pathsArray.push(currentKey)
+            valuesArray.push(currentValue)
+        } else {
+            prevPath = path;
+            path = path + '.' + currentKey;
+            pathsArray.push(path)
+            valuesArray.push(currentValue)
+            path = prevPath;
         }
-
-    }
+    });
 }
 
 function objProcess(currentKey, currentValue, path, pathsArray, valuesArray, flag) {
