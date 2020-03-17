@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Integrated JSON Editor</title>
 
-        <link rel="stylesheet" href="JSONEditor.css">
-    </head>
-    <body>
+<head>
+    <title>Integrated JSON Editor</title>
+    <link rel="stylesheet" href="JSONEditor.css">
+    <script>
+        [
+            'scripts/utils.js',
+            'scripts/domElemets.js',
+            'main.js'
+        ].forEach(function (src) {
+            var script = document.createElement('script');
+            script.src = src;
+            script.async = false;
+            document.head.appendChild(script);
+        });
+    </script>
+
+</head>
+<body>
+    <!-- <script src="scripts/utils.js"></script>
+        <script src="scripts/domElemets.js"></script>
         <script src="main.js"></script>
-    </body>
+        <link rel="stylesheet" href="JSONEditor.css"> -->
+</body>
+
 </html>
