@@ -82,3 +82,29 @@ const modalHeading = domElementCreator("h2", "ALert", {});
 const modalText = domElementCreator("h2", "", {});
 const proceedButton = domElementCreator("button", "Proceed", { class: "modalProceed" });
 const cancelButton = domElementCreator("button", "Cancel", { class: "modalCancel" });
+
+appendToNode(firstTableDiv, [firstTable]);
+appendToNode(secondTableDiv, [secondTable]);
+//File upload control
+appendToNode(fileDiv, [firstFileSelect, secondFileSelect, checkboxDiv]);
+appendToNode(errorDiv, [fileErrorMsg, checkBoxErrorMsg, retry]);
+appendToNode(firstCheckDiv, [firstFileRadio, checklabel]);
+appendToNode(secondCheckDiv, [secondFileRadio, checklabel.cloneNode(true)]);
+appendToNode(checkboxDiv, [firstCheckDiv, secondCheckDiv]);
+appendToNode(tableDiv, [firstTableDiv, scrollDiv, secondTableDiv]);
+appendToNode(searchDropdown, [optionOne, optionTwo]);
+appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown, input, searchBtn, clear, firstTableMatch, secondTableMatch]);
+appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
+appendToNode(modalHeader, [closeSign, modalHeading]);
+appendToNode(modalBody, [modalText]);
+appendToNode(modalFooter, [proceedButton, cancelButton]);
+appendToNode(modalContent, [modalHeader, modalBody, modalFooter]);
+appendToNode(modal, [modalContent]);
+appendToNode(body, [modal, buttonDiv, hr, fileDiv, errorDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]); //change
+appendToNode(scrollDiv, [startButton, br.cloneNode(true), br.cloneNode(true), rightButton, br.cloneNode(true), br.cloneNode(true), allRightButton, br.cloneNode(true), br.cloneNode(true), leftButton, br.cloneNode(true), br.cloneNode(true), allLeftButton, br.cloneNode(true), br.cloneNode(true), scrollCheckLabel, scrollCheck]);
+
+
+firstTableMatch.style.display = "none";
+secondTableMatch.style.display = "none";
+noMatch.style.display = "none";
+emptySearch.style.display = "none";

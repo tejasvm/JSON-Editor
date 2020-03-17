@@ -18,4 +18,7 @@ let object2Paths = [];
 let object1Values = [];
 let object2Values = [];
 let diffArray = [];
-
+let tableOneKeyIndex = 1;
+let tableTwoKeyIndex = 1;
+let diffArrayIndex = -1;
+let temparray = [];
