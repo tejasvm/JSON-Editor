@@ -372,8 +372,67 @@ function resetFileDiv() {
     firstFileSelect.value = "";
     secondFileSelect.value = "";
 }
-
+let tempObj = {};
 function saveRightFileFunc() {
+    let tableData = firstTable.tBodies[0].children;
+    let tableKeys = Object.keys(tableData)
+    tableKeys.forEach(element => {
+        
+        let key = tableData[element].cells[0].innerText;
+        let value = tableData[element].cells[1].innerText;
+        let keyArray = key.split(".");
+        if (keyArray[0] == "") {
+            keyArray.shift();
+        }
+        for (let index = 0; index < keyArray.length; index++) {
+            console.log(keyArray)
+            console.log(value);
+            let keyName = keyArray[index];
+            console.log(keyName);
+            let matchedValue = keyName.match(/\[.*?\]/g) || "";
+            console.log(matchedValue[0]);
+            if (matchedValue == "") {
+                if (tempObj.hasOwnProperty(keyName)) {
+                    tempObj[keyName.keyArray[index++]] = value;
+                    index++;
+                } else if (index < keyArray.length - 1) {
+                    tempObj[keyName] = {};
+                    tempObj[keyName.keyArray[index++]] = value;
+                    index++;
+                } else {
+                    tempObj[keyName] = value;
+                }
+            } else {
+                let matchedIndex = parseInt(matchedValue[0].substring(1, 2));
+                console.log(matchedIndex);
+                let arrayName = keyName.substring(0, keyName.length - 3);
+                console.log(arrayName);
+                if (tempObj.hasOwnProperty(arrayName)) {
+                    if(tempObj[`${arrayName}`].length - 1 == matchedIndex){
+                    let tempkey = keyArray[keyArray.length-1];
+                    console.log(tempkey);
+                    console.log(tempObj[`${arrayName}`][matchedIndex]);
+                    tempObj[`${arrayName}`][matchedIndex][`${tempkey}`] = value;
+                    index++;
+                    }else{
+                        let obj = {}
+                        obj[keyArray[keyArray.length-1]] = value;
+                        tempObj[arrayName].push(obj);
+                        index++;
+                    }
+                }else{
+                    tempObj[arrayName] = [];
+                    let obj = {}
+                    obj[keyArray[keyArray.length-1]] = value;
+                    console.log(obj)
+                    tempObj[arrayName].push(obj);
+                    //tempObj[arrayName[matchedIndex][keyArray[index++]]] = value;
+                    index++;
+                }
+            }
+        }
+    });
+
 }
 
 function saveLeftFileFunc() {
