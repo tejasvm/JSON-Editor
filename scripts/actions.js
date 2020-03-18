@@ -83,6 +83,8 @@ function starter() {
         allLeftButton.disabled = false;
         searchBtn.disabled = false;
         clear.disabled = false;
+        saveRightFile.disabled = false;
+        saveLeftFile.disabled = false;
         if (tableOneKeyIndex > 1 && tableTwoKeyIndex > 1) {
             while (firstTable.hasChildNodes()) {
                 firstTable.removeChild(firstTable.firstChild);
@@ -373,7 +375,7 @@ function resetFileDiv() {
     secondFileSelect.value = "";
 }
 
-function fileSaver(tableName) {
+function jsonObjectCreator(tableName) {
     let tempObj = {};
     let tableData = tableName.tBodies[0].children;
     let tableKeys = Object.keys(tableData)
@@ -426,10 +428,32 @@ function fileSaver(tableName) {
     return tempObj;
 }
 
+function saveFile(dataObj) {
+    let fileData = JSON.stringify(dataObj);
+    var blob = new Blob([fileData], {
+        type: "application/json"
+    });
+    var url = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+    a.download = "filename";
+    a.href = url;
+    a.textContent = "Save";
+    while (modalSave.hasChildNodes()) {
+        modalSave.removeChild(modalSave.firstChild);
+    }
+    modalSave.appendChild(a);
+    modalText.textContent = "";
+    modalText.textContent = "Do u want to Save?";
+    modal.style.display = "block";
+}
+
 function saveRightFileFunc() {
-    secondTableObj = fileSaver(secondTable);
+    secondTableObj = jsonObjectCreator(secondTable);
+    saveFile(secondTableObj);
 }
 
 function saveLeftFileFunc() {
-    firstTableObj = fileSaver(firstTable);
+    firstTableObj = jsonObjectCreator(firstTable);
+    saveFile(firstTableObj);
 }

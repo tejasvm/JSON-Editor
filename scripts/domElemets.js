@@ -50,11 +50,6 @@ const buttonDiv = domElementCreator("div", "", {
     class: "buttonDiv",
     id: "popup"
 });
-const popSpan = domElementCreator("span", "", {
-    class: "popuptext",
-    id: "myPopup"
-});
-const popLabel = domElementCreator("label", "");
 const yesButton = domElementCreator("button", "Yes", {
     class: "yesButton"
 });
@@ -99,7 +94,8 @@ const secondFileRadio = domElementCreator("input", "", {
     name: "fileSelect"
 });
 const tableDiv = domElementCreator("div", "", {
-    class: "tableDiv"
+    class: "tableDiv",
+    id:"tableDiv"
 });
 const firstTableDiv = domElementCreator("div", "", {
     class: "FirstTableDiv"
@@ -172,19 +168,19 @@ const emptySearch = domElementCreator("p", "Provide input", {
 const noMatch = domElementCreator("p", "No match found", {
     class: "noMatchMsg"
 });
-// code added
 const saveRightFile = domElementCreator("button", "Save Right File", {
-    class: "saveRightFile"
+    class: "saveRightFile",
+    disabled: "true"
 });
 const saveLeftFile = domElementCreator("button", "Save Left File", {
-    class: "saveLeftFile"
+    class: "saveLeftFile",
+    disabled: "true"
 });
 const buttonDivTwo = domElementCreator("div", "", {
     class: "buttonDivTwo"
 });
 const firstTableMatch = domElementCreator("p", "Total matches in first table: ");
 const secondTableMatch = domElementCreator("p", "Total matches in second table: ");
-//modal creation
 const modal = domElementCreator("div", "", {
     class: "modal",
     id: "alertModal"
@@ -207,10 +203,15 @@ const closeSign = domElementCreator("span", "x", {
 const modalHeading = domElementCreator("h2", "ALert", {});
 const modalText = domElementCreator("h2", "", {});
 const proceedButton = domElementCreator("button", "Proceed", {
-    class: "modalProceed"
+    class: "modalProceed",
+    id :"modalProceed"
 });
 const cancelButton = domElementCreator("button", "Cancel", {
     class: "modalCancel"
+});
+const saveButton = domElementCreator("button", "", {
+    class: "modalSave",
+    id :"modalSave"
 });
 
 appendToNode(firstTableDiv, [firstTable]);
@@ -227,7 +228,7 @@ appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown
 appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
 appendToNode(modalHeader, [closeSign, modalHeading]);
 appendToNode(modalBody, [modalText]);
-appendToNode(modalFooter, [proceedButton, cancelButton]);
+appendToNode(modalFooter, [proceedButton, cancelButton,saveButton]);
 appendToNode(modalContent, [modalHeader, modalBody, modalFooter]);
 appendToNode(modal, [modalContent]);
 appendToNode(body, [modal, buttonDiv, hr, fileDiv, errorDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]); //change

@@ -35,6 +35,7 @@ proceedButton.addEventListener("click", function () {
 
 cancelButton.addEventListener("click", function () {
     continueFlag = false;
+    //document.getElementById('modalProceed').removeChild(modalProceed.firstChild);
     modal.style.display = "none"; //changes
     modalText.textContent = ""; //changes
 });
