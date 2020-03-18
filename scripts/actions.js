@@ -57,14 +57,14 @@ function setBaseFile() {
         baseObjValues = object1Values;
         compareObjValues = object2Values;
         baseTable = firstTable;
-        compareTable =  secondTable;
+        compareTable = secondTable;
     } else if (secondFileRadio.checked == true) {
         flag = true;
         baseObjPaths = object2Paths;
         compareObjPaths = object1Paths;
         baseObjValues = object2Values;
         compareObjValues = object1Values;
-        baseTable =  secondTable;
+        baseTable = secondTable;
         compareTable = firstTable;
     }
 }
@@ -373,68 +373,55 @@ function resetFileDiv() {
     secondFileSelect.value = "";
 }
 let tempObj = {};
+
 function saveRightFileFunc() {
     let tableData = firstTable.tBodies[0].children;
     let tableKeys = Object.keys(tableData)
     tableKeys.forEach(element => {
-        
         let key = tableData[element].cells[0].innerText;
         let value = tableData[element].cells[1].innerText;
         let keyArray = key.split(".");
         if (keyArray[0] == "") {
             keyArray.shift();
         }
+        let keyValue = keyArray[keyArray.length - 1];
         for (let index = 0; index < keyArray.length; index++) {
-            console.log(keyArray)
-            console.log(value);
-            let keyName = keyArray[index];
-            console.log(keyName);
-            let matchedValue = keyName.match(/\[.*?\]/g) || "";
-            console.log(matchedValue[0]);
+            let keyArrayValue = keyArray[index];
+            let matchedValue = keyArrayValue.match(/\[.*?\]/g) || "";
             if (matchedValue == "") {
-                if (tempObj.hasOwnProperty(keyName)) {
-                    tempObj[keyName.keyArray[index++]] = value;
+                if (tempObj.hasOwnProperty(keyArrayValue)) {
+                    tempObj[`${keyArrayValue}`][keyValue] = value;
                     index++;
                 } else if (index < keyArray.length - 1) {
-                    tempObj[keyName] = {};
-                    tempObj[keyName.keyArray[index++]] = value;
+                    tempObj[keyArrayValue] = {};
+                    tempObj[`${keyArrayValue}`][keyValue] = value;
                     index++;
                 } else {
-                    tempObj[keyName] = value;
+                    tempObj[keyArrayValue] = value;
                 }
             } else {
                 let matchedIndex = parseInt(matchedValue[0].substring(1, 2));
-                console.log(matchedIndex);
-                let arrayName = keyName.substring(0, keyName.length - 3);
-                console.log(arrayName);
+                let arrayName = keyArrayValue.substring(0, keyArrayValue.length - 3);
                 if (tempObj.hasOwnProperty(arrayName)) {
-                    if(tempObj[`${arrayName}`].length - 1 == matchedIndex){
-                    let tempkey = keyArray[keyArray.length-1];
-                    console.log(tempkey);
-                    console.log(tempObj[`${arrayName}`][matchedIndex]);
-                    tempObj[`${arrayName}`][matchedIndex][`${tempkey}`] = value;
-                    index++;
-                    }else{
+                    if (tempObj[`${arrayName}`].length - 1 == matchedIndex) {
+                        tempObj[`${arrayName}`][matchedIndex][`${keyValue}`] = value;
+                        index++;
+                    } else {
                         let obj = {}
-                        obj[keyArray[keyArray.length-1]] = value;
+                        obj[keyArray[keyArray.length - 1]] = value;
                         tempObj[arrayName].push(obj);
                         index++;
                     }
-                }else{
+                } else {
                     tempObj[arrayName] = [];
-                    let obj = {}
-                    obj[keyArray[keyArray.length-1]] = value;
-                    console.log(obj)
-                    tempObj[arrayName].push(obj);
-                    //tempObj[arrayName[matchedIndex][keyArray[index++]]] = value;
+                    let tempobj = {}
+                    tempobj[keyArray[keyArray.length - 1]] = value;
+                    tempObj[arrayName].push(tempobj);
                     index++;
                 }
             }
         }
     });
-
 }
 
-function saveLeftFileFunc() {
-}
-
+function saveLeftFileFunc() {}
