@@ -377,6 +377,7 @@ let tempObj = {};
 function saveRightFileFunc() {
     let tableData = firstTable.tBodies[0].children;
     let tableKeys = Object.keys(tableData)
+    tableKeys.shift();
     tableKeys.forEach(element => {
         let key = tableData[element].cells[0].innerText;
         let value = tableData[element].cells[1].innerText;
