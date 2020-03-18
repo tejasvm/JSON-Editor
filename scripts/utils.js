@@ -24,3 +24,5 @@ let diffArrayIndex = -1;
 let temparray = [];
 let firstTableObj;
 let secondTableObj;
+let fileOnePresent = false;
+let fileTwoPresent = false;

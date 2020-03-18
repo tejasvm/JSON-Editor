@@ -226,7 +226,7 @@ th {
 .modal-header {
   text-align: center;
   padding: 2px 16px;
-  background-color: #c02e0a;
+  background-color: gold;
   color: white;
 }
 
@@ -238,7 +238,7 @@ th {
 .modal-footer {
   text-align: center;
   padding: 2px 16px;
-  background-color: #c02e0a;
+  background-color: goldenrod;
   height: 50px;
   color: white;
 }

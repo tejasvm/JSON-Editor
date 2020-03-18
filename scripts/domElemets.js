@@ -123,7 +123,8 @@ const allLeftButton = domElementCreator("button", "<<", {
     disabled: "true"
 });
 const startButton = domElementCreator("button", "Start", {
-    class: "startbtn"
+    class: "startbtn",
+    disabled: "true"
 });
 const scrollCheck = domElementCreator("input", "", {
     class: "scrollCheck",

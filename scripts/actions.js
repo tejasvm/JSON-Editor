@@ -412,7 +412,7 @@ function jsonObjectCreator(tableName) {
                         tempObj[`${arrayName}`][matchedIndex][`${keyValue}`] = value;
                         index++;
                     } else {
-                        let obj = {}
+                        let obj = {};
                         obj[keyArray[keyArray.length - 1]] = value;
                         tempObj[arrayName].push(obj);
                         index++;

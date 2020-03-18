@@ -15,6 +15,10 @@ function onReaderLoadFileOne(event) {
         cancelButton.style.display = "none";
         retry.style.display = "inline";
     }
+    fileOnePresent = true;
+    if(fileOnePresent && fileTwoPresent){
+        startButton.disabled = false;
+    }
 }
 
 
@@ -36,4 +40,8 @@ function onReaderLoadFileTwo(event) {
         cancelButton.style.display = "none";
     }
     startFlag = true;
+    fileTwoPresent = true;
+    if(fileOnePresent && fileTwoPresent){
+        startButton.disabled = false;
+    }
 }
