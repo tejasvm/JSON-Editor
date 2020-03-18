@@ -5,16 +5,15 @@ function onChangeFileOne(event) {
 }
 
 function onReaderLoadFileOne(event) {
-    //console.log(event);
     try {
         obj1 = JSON.parse(event.target.result);
     } catch (error) {
         console.log(error)
         modal.style.display = "block";
         modalText.textContent = "File type not supported. Please provide a JSON file.";
-        proceedButton.style.display="none";
-        cancelButton.style.display="none";
-        retry.style.display="inline";
+        proceedButton.style.display = "none";
+        cancelButton.style.display = "none";
+        retry.style.display = "inline";
     }
 }
 
@@ -26,16 +25,15 @@ function onChangeFileTwo(event) {
 }
 
 function onReaderLoadFileTwo(event) {
-    //console.log(event);
     try {
         obj2 = JSON.parse(event.target.result);
     } catch (error) {
         console.log(error)
         modal.style.display = "block";
         modalText.textContent = "File type not supported. Please provide a JSON file.";
-        proceedButton.style.display="none";
-        retry.style.display="inline";
-        cancelButton.style.display="none";
+        proceedButton.style.display = "none";
+        retry.style.display = "inline";
+        cancelButton.style.display = "none";
     }
     startFlag = true;
 }

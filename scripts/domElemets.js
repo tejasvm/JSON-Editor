@@ -50,12 +50,6 @@ const buttonDiv = domElementCreator("div", "", {
     class: "buttonDiv",
     id: "popup"
 });
-const yesButton = domElementCreator("button", "Yes", {
-    class: "yesButton"
-});
-const noButton = domElementCreator("button", "No", {
-    class: "noButton"
-});
 const input = domElementCreator("input", "", {
     class: "searchfield",
     type: "text",
@@ -95,7 +89,7 @@ const secondFileRadio = domElementCreator("input", "", {
 });
 const tableDiv = domElementCreator("div", "", {
     class: "tableDiv",
-    id:"tableDiv"
+    id: "tableDiv"
 });
 const firstTableDiv = domElementCreator("div", "", {
     class: "FirstTableDiv"
@@ -141,13 +135,6 @@ const scrollCheckLabel = domElementCreator("label", "Sync", {
 const fileDiv = domElementCreator("div", "", {
     class: "fileDiv"
 });
-// const errorDiv = domElementCreator("div", "", {
-//     class: "errorDiv"
-// });
-// const fileErrorMsg = domElementCreator("p", "File type not supported. Please try again", {
-//     class: "fileError"
-// });
-
 const retry = domElementCreator("button", "Retry", {
     class: "modalRetry"
 });
@@ -160,20 +147,23 @@ const optionOne = domElementCreator("option", "Search by Key", {
 const optionTwo = domElementCreator("option", "Search by Value", {
     value: "searchValue"
 });
-
 const saveRightFile = domElementCreator("button", "Save Right File", {
     class: "saveRightFile",
-    style:"display: none;"
+    style: "display: none;"
 });
 const saveLeftFile = domElementCreator("button", "Save Left File", {
     class: "saveLeftFile",
-    style:"display: none;"
+    style: "display: none;"
 });
 const buttonDivTwo = domElementCreator("div", "", {
     class: "buttonDivTwo"
 });
-const firstTableMatch = domElementCreator("p", "Total matches in first table: ",{style:"display: none;"});
-const secondTableMatch = domElementCreator("p", "Total matches in second table: ",{style:"display: none;"});
+const firstTableMatch = domElementCreator("p", "Total matches in first table: ", {
+    style: "display: none;"
+});
+const secondTableMatch = domElementCreator("p", "Total matches in second table: ", {
+    style: "display: none;"
+});
 const modal = domElementCreator("div", "", {
     class: "modal",
     id: "alertModal"
@@ -202,19 +192,21 @@ const cancelButton = domElementCreator("button", "Cancel", {
     class: "modalCancel"
 });
 
-const okButton=domElementCreator("button","OK",{ class: "modalOK", style:"display: none;"});    //changes
+const okButton = domElementCreator("button", "OK", {
+    class: "modalOK",
+    style: "display: none;"
+}); //changes
 
 const saveButton = domElementCreator("button", "", {
     class: "modalSave",
-    id :"modalSave",
-    style:"display: none;"
+    id: "modalSave",
+    style: "display: none;"
 });
 
 appendToNode(firstTableDiv, [firstTable]);
 appendToNode(secondTableDiv, [secondTable]);
 //File upload control
 appendToNode(fileDiv, [firstFileSelect, secondFileSelect, radioDiv]);
-// appendToNode(errorDiv, [fileErrorMsg, retry]);
 appendToNode(firstRadioDiv, [firstFileRadio, checklabel]);
 appendToNode(secondRadioDiv, [secondFileRadio, checklabel.cloneNode(true)]);
 appendToNode(radioDiv, [firstRadioDiv, secondRadioDiv]);
@@ -224,8 +216,8 @@ appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown
 appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
 appendToNode(modalHeader, [closeSign, modalHeading]);
 appendToNode(modalBody, [modalText]);
-appendToNode(modalFooter, [proceedButton, cancelButton,okButton,saveButton,retry]);
+appendToNode(modalFooter, [proceedButton, cancelButton, okButton, saveButton, retry]);
 appendToNode(modalContent, [modalHeader, modalBody, modalFooter]);
 appendToNode(modal, [modalContent]);
-appendToNode(body, [modal, buttonDiv, hr, fileDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]); //change
+appendToNode(body, [modal, buttonDiv, hr, fileDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]);
 appendToNode(scrollDiv, [startButton, br.cloneNode(true), br.cloneNode(true), rightButton, br.cloneNode(true), br.cloneNode(true), allRightButton, br.cloneNode(true), br.cloneNode(true), leftButton, br.cloneNode(true), br.cloneNode(true), allLeftButton, br.cloneNode(true), br.cloneNode(true), scrollCheckLabel, scrollCheck]);

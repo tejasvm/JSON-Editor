@@ -35,16 +35,15 @@ proceedButton.addEventListener("click", function () {
 
 cancelButton.addEventListener("click", function () {
     continueFlag = false;
-    //document.getElementById('modalProceed').removeChild(modalProceed.firstChild);
     modal.style.display = "none";
-    modalText.textContent = ""; 
+    modalText.textContent = "";
 });
 
-okButton.addEventListener("click",function(){       //changes
-    modal.style.display="none";
-    okButton.style.display="none";
-    proceedButton.style.display="inline";
-    cancelButton.style.display="inline";
+okButton.addEventListener("click", function () { //changes
+    modal.style.display = "none";
+    okButton.style.display = "none";
+    proceedButton.style.display = "inline";
+    cancelButton.style.display = "inline";
 })
 
 
@@ -57,9 +56,9 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-saveButton.addEventListener("click",function(){
-    modal.style.display="none";
-    saveButton.style.display="none";
-    proceedButton.style.display="inline";
-    cancelButton.style.display="inline";
+saveButton.addEventListener("click", function () {
+    modal.style.display = "none";
+    saveButton.style.display = "none";
+    proceedButton.style.display = "inline";
+    cancelButton.style.display = "inline";
 })

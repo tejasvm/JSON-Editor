@@ -8,12 +8,10 @@ function createTableWithHeadings(tableName, tableHeadings) {
 
 
 function createTableRows(tableName, key, value, type) {
-    //console.log("row")
     if (tableName == firstTable) {
         row = tableName.insertRow(tableOneKeyIndex);
         row.insertCell(0).innerHTML = key;
         row.insertCell(1).innerHTML = value;
-        //row.setAttribute('id', tableIndex);
         row.setAttribute('class', type);
         row.setAttribute('id', `${"firstTable"+tableOneKeyIndex}`)
         row.onclick = function () {
