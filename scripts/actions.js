@@ -372,10 +372,10 @@ function resetFileDiv() {
     firstFileSelect.value = "";
     secondFileSelect.value = "";
 }
-let tempObj = {};
 
-function saveRightFileFunc() {
-    let tableData = firstTable.tBodies[0].children;
+function fileSaver(tableName) {
+    let tempObj = {};
+    let tableData = tableName.tBodies[0].children;
     let tableKeys = Object.keys(tableData)
     tableKeys.shift();
     tableKeys.forEach(element => {
@@ -423,6 +423,13 @@ function saveRightFileFunc() {
             }
         }
     });
+    return tempObj;
 }
 
-function saveLeftFileFunc() {}
+function saveRightFileFunc() {
+    secondTableObj = fileSaver(secondTable);
+}
+
+function saveLeftFileFunc() {
+    firstTableObj = fileSaver(firstTable);
+}

@@ -11,17 +11,17 @@ prevDiff.addEventListener("click", prevDiffFunc);
 lastDiff.addEventListener("click", lastDiffFunc)
 retry.addEventListener("click", resetFileDiv);
 scrollCheck.addEventListener("click", overflowdisable);
-searchBtn.addEventListener("click", function() {
+searchBtn.addEventListener("click", function () {
     searchValue = input.value;
     search(searchValue);
 });
-clear.addEventListener("click", function() {
+clear.addEventListener("click", function () {
     searchValue = input.value;
     clearSearch(searchValue);
 });
 firstFileSelect.addEventListener('change', onChangeFileOne);
 secondFileSelect.addEventListener('change', onChangeFileTwo);
-proceedButton.addEventListener("click", function() {
+proceedButton.addEventListener("click", function () {
     if (continueFlag == "prevDiffFunc") {
         diffArrayIndex = diffArray.length;
         prevDiffFunc();
@@ -33,19 +33,19 @@ proceedButton.addEventListener("click", function() {
     modalText.textContent = ""; //changes
 });
 
-cancelButton.addEventListener("click", function() {
+cancelButton.addEventListener("click", function () {
     continueFlag = false;
     modal.style.display = "none"; //changes
     modalText.textContent = ""; //changes
 });
-input.addEventListener("click", function() {
+input.addEventListener("click", function () {
     emptySearch.style.display = "none";
 });
-closeSign.addEventListener("click", function() {
+closeSign.addEventListener("click", function () {
     modal.style.display = "none";
 });
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }

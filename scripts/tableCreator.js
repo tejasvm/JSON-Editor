@@ -16,7 +16,7 @@ function createTableRows(tableName, key, value, type) {
         //row.setAttribute('id', tableIndex);
         row.setAttribute('class', type);
         row.setAttribute('id', `${"firstTable"+tableOneKeyIndex}`)
-        row.onclick = function() {
+        row.onclick = function () {
             selectedRowsFunction(this)
         }
         tableOneKeyIndex++;
@@ -27,7 +27,7 @@ function createTableRows(tableName, key, value, type) {
         //row.setAttribute('id', tableIndex);
         row.setAttribute('class', type);
         row.setAttribute('id', `${"secondTable"+ tableTwoKeyIndex}`)
-        row.onclick = function() {
+        row.onclick = function () {
             selectedRowsFunction(this)
         }
         tableTwoKeyIndex++;
@@ -46,12 +46,12 @@ function selectedRowsFunction(row) {
     prevclassRowTwo = rowTableTwo.getAttribute("class");
     rowTableOne.removeAttribute("class");
     rowTableOne.setAttribute("class", "active")
-    rowTableOne.onclick = function() {
+    rowTableOne.onclick = function () {
         deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
     }
     rowTableTwo.removeAttribute("class");
     rowTableTwo.setAttribute("class", "active")
-    rowTableTwo.onclick = function() {
+    rowTableTwo.onclick = function () {
         deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
     }
 }
@@ -105,10 +105,10 @@ function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
     rowTableOne.setAttribute("class", prevclassRowOne)
     rowTableTwo.removeAttribute("class");
     rowTableTwo.setAttribute("class", prevclassRowTwo)
-    rowTableOne.onclick = function() {
+    rowTableOne.onclick = function () {
         selectedRowsFunction(this)
     }
-    rowTableTwo.onclick = function() {
+    rowTableTwo.onclick = function () {
         selectedRowsFunction(this)
     }
 }

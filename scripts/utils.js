@@ -22,3 +22,5 @@ let tableOneKeyIndex = 1;
 let tableTwoKeyIndex = 1;
 let diffArrayIndex = -1;
 let temparray = [];
+let firstTableObj;
+let secondTableObj;
