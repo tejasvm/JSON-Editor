@@ -83,8 +83,6 @@ function starter() {
         allLeftButton.disabled = false;
         searchBtn.disabled = false;
         clear.disabled = false;
-        saveRightFile.disabled = false;
-        saveLeftFile.disabled = false;
         if (tableOneKeyIndex > 1 && tableTwoKeyIndex > 1) {
             while (firstTable.hasChildNodes()) {
                 firstTable.removeChild(firstTable.firstChild);
@@ -98,14 +96,16 @@ function starter() {
         createTableWithHeadings(firstTable, tableHeadings);
         createTableWithHeadings(secondTable, tableHeadings);
         tablePolulator(baseObjPaths, compareObjPaths, baseObjValues, compareObjValues, baseTable, compareTable);
-    } else {
-        fileDiv.style.display = "none";
-        errorDiv.style.display = "block";
-        checkBoxErrorMsg.style.display = "block";
-    }
+     } //else {
+    //     fileDiv.style.display = "none";
+    //     errorDiv.style.display = "block";
+    //     checkBoxErrorMsg.style.display = "block";
+    // }
 }
 
 function moveRight(keyArray) {
+    saveLeftFile.style.display="inline";
+    saveRightFile.style.display="inline";
     console.log(keyArray);
     keyArray.forEach(element => {
         //move from table1 to table2
@@ -122,6 +122,8 @@ function moveRight(keyArray) {
 }
 
 function moveLeft(keyArray) {
+    saveLeftFile.style.display="inline";
+    saveRightFile.style.display="inline";
     keyArray.forEach(element => {
         //move from table2 to table1
         tableTwoId = element.replace("firstTable", "secondTable");
@@ -218,8 +220,7 @@ function nextDiffFunc() {
         }
         rowTableOne.style.border = "thick solid #0000FF";
         rowTableTwo.style.border = "thick solid #0000FF";
-        temparray.push(rowTableOne)
-        temparray.push(rowTableTwo)
+        temparray.push(rowTableOne,rowTableTwo)
         temparray.forEach(element => {
             element.classList.add('active');
             element.scrollIntoView({
@@ -228,7 +229,7 @@ function nextDiffFunc() {
             });
         });
     } else {
-        modalText.textContent = "End of the file reached. Do you want to continue:";
+        modalText.textContent = "End of the file reached. Do you want to continue?";
         continueFlag = "nextDiffFunc";
         modal.style.display = "block";
     }
@@ -257,7 +258,7 @@ function prevDiffFunc() {
             });
         });
     } else {
-        modalText.textContent = "Top of the file reached. Do you want to continue:";
+        modalText.textContent = "Top of the file reached. Do you want to continue?";
         continueFlag = "prevDiffFunc";
         modal.style.display = "block";
     }
@@ -317,18 +318,27 @@ function search(srcValue) {
             modalText.textContent = "";
             modalText.textContent = "No match found";
             modal.style.display = "block";
+            proceedButton.style.display="none";
+            cancelButton.style.display="none";
+            saveButton.style.display="none";
+            okButton.style.display="inline";
         } else {
             if (firstTableMatch.style.display == "none" && secondTableMatch.style.display == "none") {
-                firstTableMatch.style.display = "block";
+                firstTableMatch.style.display = "inline";
                 firstTableMatch.innerHTML = firstTableMatch.innerHTML + tableOneCount;
-                secondTableMatch.style.display = "block";
+                secondTableMatch.style.display = "inline";
                 secondTableMatch.innerHTML = secondTableMatch.innerHTML + tableTwoCount;
             }
         }
         prevSearch = srcValue;
         searchFlag = 1;
     } else {
+        console.log("else of search method");
         modalText.textContent = "";
+        proceedButton.style.display="none";
+        cancelButton.style.display="none";
+        saveButton.style.display="none";
+        okButton.style.display="inline";
         modalText.textContent = "Please provide input";
         modal.style.display = "block";
         searchFlag = 1;
@@ -360,19 +370,18 @@ function clearSearch(srcValue) {
 
     firstTableMatch.innerHTML = "Total matches in first table: ";
     secondTableMatch.innerHTML = "Total matches in second table: ";
-    noMatch.style.display = "none";
     firstTableMatch.style.display = "none";
     secondTableMatch.style.display = "none";
     found = 0;
 }
 
 function resetFileDiv() {
-    fileDiv.style.display = "block";
-    errorDiv.style.display = "none";
-    fileErrorMsg.style.display = "none";
-    checkBoxErrorMsg.style.display = "none";
+    retry.style.display = "none";
+    modal.style.display = "none";
     firstFileSelect.value = "";
     secondFileSelect.value = "";
+    proceedButton.style.display="inline";
+    cancelButton.style.display="inline";
 }
 
 function jsonObjectCreator(tableName) {
@@ -444,8 +453,14 @@ function saveFile(dataObj) {
     }
     modalSave.appendChild(a);
     modalText.textContent = "";
-    modalText.textContent = "Do u want to Save?";
+    proceedButton.style.display="none";
+    cancelButton.style.display="none";
+    okButton.style.display="none";
+    retry.style.display="none";
+    saveButton.style.display="inline";
+    modalText.textContent = "Do you want to save?";
     modal.style.display = "block";
+    modalSave.style.display = "inline";
 }
 
 function saveRightFileFunc() {

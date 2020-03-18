@@ -2,9 +2,9 @@ function domElementCreator(type, textContent, attributeObject) {
     let element = document.createElement(type);
     element.textContent = textContent;
     if (attributeObject != null) {
-        let attributeKeys = Object.keys(attributeObject);
-        attributeKeys.forEach(attribute => {
-            element.setAttribute(attribute, attributeObject[attribute]);
+        let attributeClasses = Object.keys(attributeObject);
+        attributeClasses.forEach(attributeClass => {
+            element.setAttribute(attributeClass, attributeObject[attributeClass]);
         });
     }
     return element;
@@ -72,14 +72,14 @@ const secondFileSelect = domElementCreator("input", "", {
     type: "file",
     accept: ".json"
 });
-const checkboxDiv = domElementCreator("div", "", {
-    class: "checkboxDiv"
+const radioDiv = domElementCreator("div", "", {
+    class: "radioDiv"
 });
-const firstCheckDiv = domElementCreator("div", "", {
-    class: "firstCheckDiv"
+const firstRadioDiv = domElementCreator("div", "", {
+    class: "firstRadioDiv"
 });
-const secondCheckDiv = domElementCreator("div", "", {
-    class: "secondCheckDiv"
+const secondRadioDiv = domElementCreator("div", "", {
+    class: "secondRadioDiv"
 });
 const firstFileRadio = domElementCreator("input", "", {
     class: "firstFileRadio",
@@ -141,17 +141,15 @@ const scrollCheckLabel = domElementCreator("label", "Sync", {
 const fileDiv = domElementCreator("div", "", {
     class: "fileDiv"
 });
-const errorDiv = domElementCreator("div", "", {
-    class: "errorDiv"
-});
-const fileErrorMsg = domElementCreator("p", "File type not supported. Please try again", {
-    class: "fileError"
-});
-const checkBoxErrorMsg = domElementCreator("p", "Checkbox hasn't been selected. Please try again", {
-    class: "checkBoxError"
-});
+// const errorDiv = domElementCreator("div", "", {
+//     class: "errorDiv"
+// });
+// const fileErrorMsg = domElementCreator("p", "File type not supported. Please try again", {
+//     class: "fileError"
+// });
+
 const retry = domElementCreator("button", "Retry", {
-    class: "retry"
+    class: "modalRetry"
 });
 const searchDropdown = domElementCreator("select", "", {
     class: "searchDropdown"
@@ -162,25 +160,20 @@ const optionOne = domElementCreator("option", "Search by Key", {
 const optionTwo = domElementCreator("option", "Search by Value", {
     value: "searchValue"
 });
-const emptySearch = domElementCreator("p", "Provide input", {
-    class: "emptySearch"
-});
-const noMatch = domElementCreator("p", "No match found", {
-    class: "noMatchMsg"
-});
+
 const saveRightFile = domElementCreator("button", "Save Right File", {
     class: "saveRightFile",
-    disabled: "true"
+    style:"display: none;"
 });
 const saveLeftFile = domElementCreator("button", "Save Left File", {
     class: "saveLeftFile",
-    disabled: "true"
+    style:"display: none;"
 });
 const buttonDivTwo = domElementCreator("div", "", {
     class: "buttonDivTwo"
 });
-const firstTableMatch = domElementCreator("p", "Total matches in first table: ");
-const secondTableMatch = domElementCreator("p", "Total matches in second table: ");
+const firstTableMatch = domElementCreator("p", "Total matches in first table: ",{style:"display: none;"});
+const secondTableMatch = domElementCreator("p", "Total matches in second table: ",{style:"display: none;"});
 const modal = domElementCreator("div", "", {
     class: "modal",
     id: "alertModal"
@@ -200,42 +193,39 @@ const modalFooter = domElementCreator("div", "", {
 const closeSign = domElementCreator("span", "x", {
     class: "close"
 });
-const modalHeading = domElementCreator("h2", "ALert", {});
+const modalHeading = domElementCreator("h2", "Alert", {});
 const modalText = domElementCreator("h2", "", {});
 const proceedButton = domElementCreator("button", "Proceed", {
-    class: "modalProceed",
-    id :"modalProceed"
+    class: "modalProceed"
 });
 const cancelButton = domElementCreator("button", "Cancel", {
     class: "modalCancel"
 });
+
+const okButton=domElementCreator("button","OK",{ class: "modalOK", style:"display: none;"});    //changes
+
 const saveButton = domElementCreator("button", "", {
     class: "modalSave",
-    id :"modalSave"
+    id :"modalSave",
+    style:"display: none;"
 });
 
 appendToNode(firstTableDiv, [firstTable]);
 appendToNode(secondTableDiv, [secondTable]);
 //File upload control
-appendToNode(fileDiv, [firstFileSelect, secondFileSelect, checkboxDiv]);
-appendToNode(errorDiv, [fileErrorMsg, checkBoxErrorMsg, retry]);
-appendToNode(firstCheckDiv, [firstFileRadio, checklabel]);
-appendToNode(secondCheckDiv, [secondFileRadio, checklabel.cloneNode(true)]);
-appendToNode(checkboxDiv, [firstCheckDiv, secondCheckDiv]);
+appendToNode(fileDiv, [firstFileSelect, secondFileSelect, radioDiv]);
+// appendToNode(errorDiv, [fileErrorMsg, retry]);
+appendToNode(firstRadioDiv, [firstFileRadio, checklabel]);
+appendToNode(secondRadioDiv, [secondFileRadio, checklabel.cloneNode(true)]);
+appendToNode(radioDiv, [firstRadioDiv, secondRadioDiv]);
 appendToNode(tableDiv, [firstTableDiv, scrollDiv, secondTableDiv]);
 appendToNode(searchDropdown, [optionOne, optionTwo]);
 appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown, input, searchBtn, clear, firstTableMatch, secondTableMatch]);
 appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
 appendToNode(modalHeader, [closeSign, modalHeading]);
 appendToNode(modalBody, [modalText]);
-appendToNode(modalFooter, [proceedButton, cancelButton,saveButton]);
+appendToNode(modalFooter, [proceedButton, cancelButton,okButton,saveButton,retry]);
 appendToNode(modalContent, [modalHeader, modalBody, modalFooter]);
 appendToNode(modal, [modalContent]);
-appendToNode(body, [modal, buttonDiv, hr, fileDiv, errorDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]); //change
+appendToNode(body, [modal, buttonDiv, hr, fileDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]); //change
 appendToNode(scrollDiv, [startButton, br.cloneNode(true), br.cloneNode(true), rightButton, br.cloneNode(true), br.cloneNode(true), allRightButton, br.cloneNode(true), br.cloneNode(true), leftButton, br.cloneNode(true), br.cloneNode(true), allLeftButton, br.cloneNode(true), br.cloneNode(true), scrollCheckLabel, scrollCheck]);
-
-
-firstTableMatch.style.display = "none";
-secondTableMatch.style.display = "none";
-noMatch.style.display = "none";
-emptySearch.style.display = "none";

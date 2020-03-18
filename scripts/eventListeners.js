@@ -29,19 +29,25 @@ proceedButton.addEventListener("click", function () {
         diffArrayIndex = -1;
         nextDiffFunc();
     }
-    modal.style.display = "none"; //changes
-    modalText.textContent = ""; //changes
+    modal.style.display = "none";
+    modalText.textContent = "";
 });
 
 cancelButton.addEventListener("click", function () {
     continueFlag = false;
     //document.getElementById('modalProceed').removeChild(modalProceed.firstChild);
-    modal.style.display = "none"; //changes
-    modalText.textContent = ""; //changes
+    modal.style.display = "none";
+    modalText.textContent = ""; 
 });
-input.addEventListener("click", function () {
-    emptySearch.style.display = "none";
-});
+
+okButton.addEventListener("click",function(){       //changes
+    modal.style.display="none";
+    okButton.style.display="none";
+    proceedButton.style.display="inline";
+    cancelButton.style.display="inline";
+})
+
+
 closeSign.addEventListener("click", function () {
     modal.style.display = "none";
 });
@@ -51,3 +57,9 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+saveButton.addEventListener("click",function(){
+    modal.style.display="none";
+    saveButton.style.display="none";
+    proceedButton.style.display="inline";
+    cancelButton.style.display="inline";
+})

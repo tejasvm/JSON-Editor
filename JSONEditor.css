@@ -22,19 +22,19 @@
   margin-left: 35.5%;
 }
 
-.firstCheckDiv {
+.firstRadioDiv {
   float: left;
   margin-left: 7.5%;
 }
 
-.secondCheckDiv {
+.secondRadioDiv {
   float: left;
   margin-left: 39.5%;
 }
 
 .tableDiv {
   width: auto;
-  height: 39.37%;
+  height: 39%;
 
 }
 
@@ -46,7 +46,7 @@
   border: 1px solid black;
   width: 47.5%;
   max-width: 47.5%;
-  height: 560px;
+  height: 500px;
   float: left;
   overflow: scroll;
 
@@ -56,18 +56,17 @@
   border: 1px solid black;
   width: 47.5%;
   max-width: 47.5%;
-  height: 560px;
+  height: 500px;
   float: right;
   overflow: scroll;
 }
 
 .scrollDiv {
-  width: 50px;
-  height: 600px;
+  width: 4%;
+  height: 90%;
   position: fixed;
   top: 50%;
   left: 50%;
-  /* bring your own prefixes */
   float: left;
   transform: translate(-55%, -21%);
 }
@@ -89,13 +88,14 @@
 
 p {
   text-align: center;
-  color: red;
+  margin-left: 23%;  
+  color: green;
 }
 
 table {
   background-color: #eee;
   color: black;
-  padding: 12px;
+  /* padding: 12px; */
   text-decoration: none;
   width: 100%;
   border-collapse: collapse;
@@ -103,14 +103,14 @@ table {
 
 tr {
   border: 1px solid #ddd;
-  padding: 8px;
+  /* padding: 8px; */
 }
 
 
 td,
 th {
   height: 25px;
-  padding: 8px;
+  padding: 1.25%;
   border-collapse: collapse;
 }
 
@@ -142,65 +142,6 @@ th {
   width: 100%;
   height: 5%;
 }
-
-#popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* The actual popup */
-#popup .popuptext {
-  visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  top: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
-
-
-
-/* Toggle this class - hide and show the popup */
-#popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-
-
 
 
 /* The Modal (background) */
@@ -283,17 +224,57 @@ th {
 }
 
 .modal-header {
+  text-align: center;
   padding: 2px 16px;
-  background-color: #5cb85c;
+  background-color: #c02e0a;
   color: white;
 }
 
 .modal-body {
+  text-align: center;
   padding: 2px 16px;
 }
 
 .modal-footer {
+  text-align: center;
   padding: 2px 16px;
-  background-color: #5cb85c;
+  background-color: #c02e0a;
+  height: 50px;
   color: white;
+}
+
+.modalProceed{
+  background-color: green;
+  color: white;
+  position: relative;
+  margin: 12px;
+  padding: 5px;
+}
+.modalCancel{
+  background-color: green;
+  color: white;
+  position: absolute;
+  margin: 12px;
+  padding: 5px;
+}
+
+.modalOK, .modalRetry{
+  background-color: green;
+  color: white;
+  position: relative;
+  margin: 12px;
+  padding: 5px;
+}
+
+.modalSave{
+  background-color: green;
+  color: white;
+  position: relative;
+  margin: 12px;
+  padding: 5px;
+}
+
+a{
+  color: white;
+  text-decoration: none;
 }

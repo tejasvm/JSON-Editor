@@ -10,9 +10,11 @@ function onReaderLoadFileOne(event) {
         obj1 = JSON.parse(event.target.result);
     } catch (error) {
         console.log(error)
-        fileDiv.style.display = "none";
-        errorDiv.style.display = "block";
-        fileErrorMsg.style.display = "block";
+        modal.style.display = "block";
+        modalText.textContent = "File type not supported. Please provide a JSON file.";
+        proceedButton.style.display="none";
+        cancelButton.style.display="none";
+        retry.style.display="inline";
     }
 }
 
@@ -29,9 +31,11 @@ function onReaderLoadFileTwo(event) {
         obj2 = JSON.parse(event.target.result);
     } catch (error) {
         console.log(error)
-        fileDiv.style.display = "none";
-        errorDiv.style.display = "block";
-        fileErrorMsg.style.display = "block";
+        modal.style.display = "block";
+        modalText.textContent = "File type not supported. Please provide a JSON file.";
+        proceedButton.style.display="none";
+        retry.style.display="inline";
+        cancelButton.style.display="none";
     }
     startFlag = true;
 }
