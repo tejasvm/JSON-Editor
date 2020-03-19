@@ -62,13 +62,13 @@
 }
 
 .scrollDiv {
-  width: 4%;
+  width: 3%;
   height: 90%;
   position: fixed;
   top: 50%;
   left: 50%;
   float: left;
-  transform: translate(-55%, -21%);
+  transform: translate(-50%, -21%);
 }
 
 .scrollCheck {
