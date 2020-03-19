@@ -278,3 +278,19 @@ a{
   color: white;
   text-decoration: none;
 }
+
+saveLeftFile{
+  margin-top:1%;
+  margin-left: 15%;
+  background-color: green;
+  color: white;
+  padding: 5px;
+}
+
+.saveRightFile{
+  margin-top: 1%;
+  margin-left: 50%;
+  background-color: green;
+  color: white;
+  padding: 5px;
+}
