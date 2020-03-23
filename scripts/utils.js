@@ -1,4 +1,4 @@
-let value1, value2, value3, value4, value5, value6, flag, searchValue, prevSearch, continueFlag = false;
+let object1PathsArray, object2PathsArray, object1ValuesArray, object2ValuesArray, tableOne, tableTwo,flag, searchValue, prevSearch, continueFlag = false;
 let selectedValues = [];
 let allMoveRightArray = [];
 let allMoveLeftArray = [];
@@ -26,3 +26,7 @@ let firstTableObj;
 let secondTableObj;
 let fileOnePresent = false;
 let fileTwoPresent = false;
+let undoObjects = [];
+let redoObjects = [];
+let changeIndex = 0;
+let allChangesObjects = {};

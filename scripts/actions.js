@@ -1,36 +1,36 @@
-function valueCreator(obj, path, pathsArray, valuesArray) {
+function valueCreator(obj, path, pathsArray, valuesArray) { // Creates the paths of the key and stores it in an array and also strores the values in an array
     path = path || "";
     let objKeys = Object.keys(obj);
     objKeys.forEach(key => {
         let currentKey = key;
         let currentValue = obj[currentKey];
         if (Array.isArray(currentValue)) {
-            arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray)
+            arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray);
         } else if (isObject(currentValue)) {
-            objProcess(currentKey, currentValue, path, pathsArray, valuesArray, false)
+            objProcess(currentKey, currentValue, path, pathsArray, valuesArray, false);
         } else if (currentValue == null && path == "") {
-            pathsArray.push(currentKey)
-            valuesArray.push("")
+            pathsArray.push(currentKey);
+            valuesArray.push("");
         } else if (currentValue == null) {
             prevPath = path;
             path = path + '.' + currentKey;
-            pathsArray.push(path)
-            valuesArray.push("")
+            pathsArray.push(path);
+            valuesArray.push("");
             path = prevPath;
         } else if (path == "") {
-            pathsArray.push(currentKey)
-            valuesArray.push(currentValue)
+            pathsArray.push(currentKey);
+            valuesArray.push(currentValue);
         } else {
             prevPath = path;
             path = path + '.' + currentKey;
-            pathsArray.push(path)
-            valuesArray.push(currentValue)
+            pathsArray.push(path);
+            valuesArray.push(currentValue);
             path = prevPath;
         }
     });
 }
 
-function objProcess(currentKey, currentValue, path, pathsArray, valuesArray, flag) {
+function objProcess(currentKey, currentValue, path, pathsArray, valuesArray, flag) { // Does the processing for each object
     if (flag == true) {
         path = path + '[' + currentKey + ']';
     } else {
@@ -39,18 +39,19 @@ function objProcess(currentKey, currentValue, path, pathsArray, valuesArray, fla
     valueCreator(currentValue, path, pathsArray, valuesArray);
 }
 
-function arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray) {
+function arrayProcess(currentKey, currentValue, path, pathsArray, valuesArray) { // Does the processing for each array 
     path = path + '.' + currentKey;
     currentValue.forEach((element, objIndex) => {
-        objProcess(objIndex, element, path, pathsArray, valuesArray, true)
+        objProcess(objIndex, element, path, pathsArray, valuesArray, true);
     });
 
 }
 
-const isObject = obj => obj === Object(obj);
+const isObject = obj => obj === Object(obj); // Checks if object or not.
 
-function setBaseFile() {
+function setBaseFile() { // Sets the base file as per the radio button
     if (firstFileRadio.checked == true) {
+        // Sets the left hand side file to be base
         flag = true;
         baseObjPaths = object1Paths;
         compareObjPaths = object2Paths;
@@ -59,6 +60,7 @@ function setBaseFile() {
         baseTable = firstTable;
         compareTable = secondTable;
     } else if (secondFileRadio.checked == true) {
+        // Sets the right hand side file to be base
         flag = true;
         baseObjPaths = object2Paths;
         compareObjPaths = object1Paths;
@@ -69,8 +71,14 @@ function setBaseFile() {
     }
 }
 
-function starter() {
+function starter() { // The function that is called when the start button is pressed and it enables the functionality
+    let d = new Date();
+    console.log(d);
     if (startFlag == true) {
+        object1Paths = [];
+        object2Paths = [];
+        object1Values = [];
+        object2Values = [];
         valueCreator(obj1, "", object1Paths, object1Values);
         valueCreator(obj2, "", object2Paths, object2Values);
         startFlag = false;
@@ -83,6 +91,8 @@ function starter() {
         allLeftButton.disabled = false;
         searchBtn.disabled = false;
         clear.disabled = false;
+        undoButton.disabled = false;
+        redoButton.disabled =  false;
         if (tableOneKeyIndex > 1 && tableTwoKeyIndex > 1) {
             while (firstTable.hasChildNodes()) {
                 firstTable.removeChild(firstTable.firstChild);
@@ -97,39 +107,69 @@ function starter() {
         createTableWithHeadings(secondTable, tableHeadings);
         tablePolulator(baseObjPaths, compareObjPaths, baseObjValues, compareObjValues, baseTable, compareTable);
     }
+    d = new Date();
+    console.log(d);
 }
 
 function moveRight(keyArray) {
-    saveLeftFile.style.display = "inline";
+    //saveLeftFile.style.display = "inline";
     saveRightFile.style.display = "inline";
+    let tempArray = []
+    console.log("move count" + keyArray.length);
+    let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
-    keyArray.forEach(element => {
-        tableTwoId = element.replace("firstTable", "secondTable");
-        tableOneId = element.replace("secondTable", "firstTable");
-        rowTableOne = document.getElementById(tableOneId);
-        rowTableTwo = document.getElementById(tableTwoId)
-        cellsTableone = rowTableOne.getElementsByTagName("td");
-        cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-        cellsTableTwo[0].innerText = cellsTableone[0].innerText;
-        cellsTableTwo[1].innerText = cellsTableone[1].innerText;
-
-    });
-}
-
-function moveLeft(keyArray) {
-    saveLeftFile.style.display = "inline";
-    saveRightFile.style.display = "inline";
-    keyArray.forEach(element => {
+    tempKeyArray.forEach(element => {
+        console.log(element);
+        let tempObj = {}
         tableTwoId = element.replace("firstTable", "secondTable");
         tableOneId = element.replace("secondTable", "firstTable");
         rowTableOne = document.getElementById(tableOneId);
         rowTableTwo = document.getElementById(tableTwoId);
-        cellsTableone = rowTableOne.getElementsByTagName("td");
+        cellsTableOne = rowTableOne.getElementsByTagName("td");
         cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-        cellsTableone[0].innerText = cellsTableTwo[0].innerText;
-        cellsTableone[1].innerText = cellsTableTwo[1].innerText;
-
+        tempObj["tableOneId"]=tableOneId;
+        tempObj["tableTwoId"]= tableTwoId;
+        tempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        tempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        tempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        tempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        tempArray.unshift(tempObj);
+        cellsTableTwo[0].innerText = cellsTableOne[0].innerText;
+        cellsTableTwo[1].innerText = cellsTableOne[1].innerText;
+        rowTableOne.click();
     });
+    allChangesObjects[`${"change"+changeIndex}`] = tempArray;
+    changeIndex++;
+}
+
+function moveLeft(keyArray) {
+    //saveRightFile.style.display = "inline";
+    saveLeftFile.style.display = "inline";
+    let tempArray = []
+    console.log("move count" + keyArray.length);
+    let tempKeyArray = keyArray.slice(0);
+    console.log(keyArray);
+    tempKeyArray.forEach(element => {
+        let tempObj = {}
+        tableTwoId = element.replace("firstTable", "secondTable");
+        tableOneId = element.replace("secondTable", "firstTable");
+        rowTableOne = document.getElementById(tableOneId);
+        rowTableTwo = document.getElementById(tableTwoId);
+        cellsTableOne = rowTableOne.getElementsByTagName("td");
+        cellsTableTwo = rowTableTwo.getElementsByTagName("td");
+        tempObj["tableOneId"]=tableOneId;
+        tempObj["tableTwoId"]= tableTwoId;
+        tempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        tempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        tempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        tempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        tempArray.unshift(tempObj);
+        cellsTableOne[0].innerText = cellsTableTwo[0].innerText;
+        cellsTableOne[1].innerText = cellsTableTwo[1].innerText;
+        rowTableOne.click();
+    });
+    allChangesObjects[`${"change"+changeIndex}`] = tempArray;
+    changeIndex++;
 }
 
 function selectMoveRight() {
@@ -137,7 +177,7 @@ function selectMoveRight() {
 }
 
 function selectMoveLeft() {
-    moveLeft(selectedValues)
+    moveLeft(selectedValues);
 }
 
 function allMoveRight() {
@@ -149,9 +189,69 @@ function allMoveLeft() {
     moveLeft(allMoveLeftArray);
 }
 
+function undo() {
+   let noOfChangesUndo = undoObjects[0].count;
+   console.log("undo count" + noOfChangesUndo);
+   //console.log(noOfChangesUndo);
+   let temparray = undoObjects.slice(0);
+   //ar new_arr = channel_chunk.slice(0);
+   console.log("temp");
+   console.log(temparray);
+   for (let index = 0; index < noOfChangesUndo; index++) {
+    let tempObj = {}
+       const element = temparray[index];
+       console.log(element);
+       console.log("array")
+       undoObjects.shift();
+       console.log(undoObjects);
+       rowTableOne = document.getElementById(element.tableOneId);
+        rowTableTwo = document.getElementById(element.tableTwoId);
+        cellsTableOne = rowTableOne.getElementsByTagName("td");
+        cellsTableTwo = rowTableTwo.getElementsByTagName("td");
+        tempObj["tableOneId"]=element.tableOneId;
+        tempObj["tableTwoId"]= element.tableTwoId;
+        tempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        tempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        tempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        tempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        tempObj["count"] = element.count;
+        redoObjects.unshift(tempObj);
+        cellsTableOne[0].innerText =element.tableOneKeyValue; 
+        cellsTableTwo[0].innerText=element.tableTwoKeyValue;
+        cellsTableOne[1].innerText = element.tableOnePathValue;
+        cellsTableTwo[1].innerText=element.tableTwoPathValue;
+   }
+}
+
+function redo() {
+    let noOfChangesUndo = redoObjects[0].count;
+   console.log("undo count" + noOfChangesUndo);
+   //console.log(noOfChangesUndo);
+   let temparray = redoObjects.slice(0);
+   //ar new_arr = channel_chunk.slice(0);
+   console.log("temp");
+   console.log(temparray);
+   for (let index = 0; index < noOfChangesUndo; index++) {
+       const element = temparray[index];
+       redoObjects.unshift(element);
+       console.log(element);
+       console.log("array")
+       redoObjects.shift();
+       console.log(redoObjects);
+       rowTableOne = document.getElementById(element.tableOneId);
+        rowTableTwo = document.getElementById(element.tableTwoId);
+        cellsTableOne = rowTableOne.getElementsByTagName("td");
+        cellsTableTwo = rowTableTwo.getElementsByTagName("td");
+        cellsTableOne[0].innerText =element.tableOneKeyValue; 
+        cellsTableTwo[0].innerText=element.tableTwoKeyValue;
+        cellsTableOne[1].innerText = element.tableOnePathValue;
+        cellsTableTwo[1].innerText=element.tableTwoPathValue;
+   }
+}
+
 function overflowdisable() {
     if (scrollCheck.checked == true) {
-        scrollDiv.style.transform = "translate(-66.5%, -21%)";
+        actionDiv.style.transform = "translate(-66.5%, -21%)";
         firstTableDiv.style.border = "none";
         secondTableDiv.style.border = "none";
         firstTableDiv.style.overflow = "initial";
@@ -162,7 +262,7 @@ function overflowdisable() {
         prevDiff.disabled = false;
         lastDiff.disabled = false;
     } else {
-        scrollDiv.style.transform = "translate(-55%, -21%)";
+        actionDiv.style.transform = "translate(-55%, -21%)";
         firstTableDiv.style.border = "1px solid black";
         secondTableDiv.style.border = "1px solid black";
         firstTableDiv.style.overflow = "scroll";
@@ -188,7 +288,7 @@ function firstDiffFunc() {
     }
     rowTableOne.style.border = "thick solid #0000FF";
     rowTableTwo.style.border = "thick solid #0000FF";
-    temparray = [rowTableOne, rowTableTwo]
+    temparray = [rowTableOne, rowTableTwo];
     temparray.forEach(element => {
         element.scrollIntoView({
             behavior: 'smooth',
@@ -213,7 +313,7 @@ function nextDiffFunc() {
         }
         rowTableOne.style.border = "thick solid #0000FF";
         rowTableTwo.style.border = "thick solid #0000FF";
-        temparray.push(rowTableOne, rowTableTwo)
+        temparray.push(rowTableOne, rowTableTwo);
         temparray.forEach(element => {
             element.classList.add('active');
             element.scrollIntoView({
@@ -270,7 +370,7 @@ function lastDiffFunc() {
     }
     rowTableOne.style.border = "thick solid #0000FF";
     rowTableTwo.style.border = "thick solid #0000FF";
-    temparray = [rowTableOne, rowTableTwo]
+    temparray = [rowTableOne, rowTableTwo];
     temparray.forEach(element => {
         element.scrollIntoView({
             behavior: 'smooth',

@@ -1,5 +1,5 @@
 function createTableWithHeadings(tableName, tableHeadings) {
-    var row = tableName.insertRow(0);
+    let row = tableName.insertRow(0);
     tableHeadings.forEach((tableHeading, index) => {
         row.insertCell(index).innerHTML = tableHeading;
     });
@@ -13,9 +13,9 @@ function createTableRows(tableName, key, value, type) {
         row.insertCell(0).innerHTML = key;
         row.insertCell(1).innerHTML = value;
         row.setAttribute('class', type);
-        row.setAttribute('id', `${"firstTable"+tableOneKeyIndex}`)
+        row.setAttribute('id', `${"firstTable"+tableOneKeyIndex}`);
         row.onclick = function () {
-            selectedRowsFunction(this)
+            selectedRowsFunction(this);
         }
         tableOneKeyIndex++;
     } else {
@@ -24,9 +24,9 @@ function createTableRows(tableName, key, value, type) {
         row.insertCell(1).innerHTML = value;
         //row.setAttribute('id', tableIndex);
         row.setAttribute('class', type);
-        row.setAttribute('id', `${"secondTable"+ tableTwoKeyIndex}`)
+        row.setAttribute('id', `${"secondTable"+ tableTwoKeyIndex}`);
         row.onclick = function () {
-            selectedRowsFunction(this)
+            selectedRowsFunction(this);
         }
         tableTwoKeyIndex++;
     }
@@ -35,6 +35,7 @@ function createTableRows(tableName, key, value, type) {
 function selectedRowsFunction(row) {
     id = row.getAttribute("id");
     selectedValues.push(id);
+    console.log("selectedValues select " + selectedValues);
     tableTwoId = id.replace("firstTable", "secondTable");
     tableOneId = id.replace("secondTable", "firstTable");
     rowTableOne = document.getElementById(tableOneId);
@@ -43,14 +44,14 @@ function selectedRowsFunction(row) {
     prevclassRowOne = rowTableOne.getAttribute("class");
     prevclassRowTwo = rowTableTwo.getAttribute("class");
     rowTableOne.removeAttribute("class");
-    rowTableOne.setAttribute("class", "active")
+    rowTableOne.setAttribute("class", "active");
     rowTableOne.onclick = function () {
-        deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
+        deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo);
     }
     rowTableTwo.removeAttribute("class");
-    rowTableTwo.setAttribute("class", "active")
+    rowTableTwo.setAttribute("class", "active");
     rowTableTwo.onclick = function () {
-        deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo)
+        deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo);
     }
 }
 
@@ -59,25 +60,25 @@ function tablePolulator(object1PathsArray, object2PathsArray, object1ValuesArray
         if (object2PathsArray.includes(element)) {
             indexValue = object2PathsArray.indexOf(element)
             if (object1ValuesArray[index] == object2ValuesArray[indexValue]) {
-                createTableRows(tableOne, element, object1ValuesArray[index], "normal")
-                createTableRows(tableTwo, object2PathsArray[indexValue], object2ValuesArray[indexValue], "normal")
+                createTableRows(tableOne, element, object1ValuesArray[index], "normal");
+                createTableRows(tableTwo, object2PathsArray[indexValue], object2ValuesArray[indexValue], "normal");
             } else {
-                createTableRows(tableOne, element, object1ValuesArray[index], "blue")
-                createTableRows(tableTwo, object2PathsArray[indexValue], object2ValuesArray[indexValue], "blue")
+                createTableRows(tableOne, element, object1ValuesArray[index], "blue");
+                createTableRows(tableTwo, object2PathsArray[indexValue], object2ValuesArray[indexValue], "blue");
             }
         } else {
-            allMoveRightArray.push(`${"firstTable"+tableTwoKeyIndex}`)
-            createTableRows(tableOne, element, object1ValuesArray[index], "green")
-            createTableRows(tableTwo, "", "", "red")
+            allMoveRightArray.push(`${"firstTable"+tableTwoKeyIndex}`);
+            createTableRows(tableOne, element, object1ValuesArray[index], "green");
+            createTableRows(tableTwo, "", "", "red");
         }
     });
     object2PathsArray.forEach((element, index) => {
         if (object1PathsArray.includes(element)) {
             //continue;
         } else {
-            allMoveLeftArray.push(`${"firstTable"+tableTwoKeyIndex}`)
-            createTableRows(tableOne, "", "", "red")
-            createTableRows(tableTwo, element, object2ValuesArray[index], "green")
+            allMoveLeftArray.push(`${"firstTable"+tableTwoKeyIndex}`);
+            createTableRows(tableOne, "", "", "red");
+            createTableRows(tableTwo, element, object2ValuesArray[index], "green");
         }
 
     });
@@ -86,12 +87,18 @@ function tablePolulator(object1PathsArray, object2PathsArray, object1ValuesArray
 
 function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
     id = row.getAttribute("id");
-    let index = selectedValues.indexOf(id);
-    if (index > -1) {
-        selectedValues.splice(selectedValues, 1);
-    }
     tableTwoId = id.replace("firstTable", "secondTable");
     tableOneId = id.replace("secondTable", "firstTable");
+    let index;
+    if (selectedValues.indexOf(tableOneId) != -1) {
+        index = selectedValues.indexOf(tableOneId);
+    } else {
+        index = selectedValues.indexOf(tableTwoId);
+    }
+    if (index > -1) {
+        selectedValues.splice(index, 1);
+        console.log("selectedValues deselect " + selectedValues);
+    }
     rowTableOne = document.getElementById(tableOneId);
     rowTableTwo = document.getElementById(tableTwoId);
     diffArrayIndex = -1;
@@ -100,13 +107,13 @@ function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
         temparray[1].style.border = null;
     }
     rowTableOne.removeAttribute("class");
-    rowTableOne.setAttribute("class", prevclassRowOne)
+    rowTableOne.setAttribute("class", prevclassRowOne);
     rowTableTwo.removeAttribute("class");
-    rowTableTwo.setAttribute("class", prevclassRowTwo)
+    rowTableTwo.setAttribute("class", prevclassRowTwo);
     rowTableOne.onclick = function () {
-        selectedRowsFunction(this)
+        selectedRowsFunction(this);
     }
     rowTableTwo.onclick = function () {
-        selectedRowsFunction(this)
+        selectedRowsFunction(this);
     }
 }

@@ -5,6 +5,8 @@ rightButton.addEventListener("click", selectMoveRight);
 leftButton.addEventListener("click", selectMoveLeft);
 allRightButton.addEventListener("click", allMoveRight);
 allLeftButton.addEventListener("click", allMoveLeft);
+undoButton.addEventListener("click", undo);
+redoButton.addEventListener("click", redo)
 firstDiff.addEventListener("click", firstDiffFunc);
 nextDiff.addEventListener("click", nextDiffFunc);
 prevDiff.addEventListener("click", prevDiffFunc);
@@ -39,7 +41,7 @@ cancelButton.addEventListener("click", function () {
     modalText.textContent = "";
 });
 
-okButton.addEventListener("click", function () { //changes
+okButton.addEventListener("click", function () { 
     modal.style.display = "none";
     okButton.style.display = "none";
     proceedButton.style.display = "inline";
@@ -61,4 +63,7 @@ saveButton.addEventListener("click", function () {
     saveButton.style.display = "none";
     proceedButton.style.display = "inline";
     cancelButton.style.display = "inline";
+})
+firstTable.addEventListener("onload", function(){
+    alert("haha");
 })

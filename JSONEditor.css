@@ -61,7 +61,7 @@
   overflow: scroll;
 }
 
-.scrollDiv {
+.actionDiv {
   width: 3%;
   height: 90%;
   position: fixed;
@@ -88,7 +88,7 @@
 
 p {
   text-align: center;
-  margin-left: 23%;  
+  margin-left: 23%;
   color: green;
 }
 
@@ -138,7 +138,9 @@ th {
 .rightBtn,
 .leftBtn,
 .allRightBtn,
-.allLeftBtn {
+.allLeftBtn,
+.redoBtn,
+.undoBtn {
   width: 100%;
   height: 5%;
 }
@@ -226,7 +228,7 @@ th {
 .modal-header {
   text-align: center;
   padding: 2px 16px;
-  background-color: gold;
+  background-color: goldenrod;
   color: white;
 }
 
@@ -243,14 +245,15 @@ th {
   color: white;
 }
 
-.modalProceed{
+.modalProceed {
   background-color: green;
   color: white;
   position: relative;
   margin: 12px;
   padding: 5px;
 }
-.modalCancel{
+
+.modalCancel {
   background-color: green;
   color: white;
   position: absolute;
@@ -258,7 +261,8 @@ th {
   padding: 5px;
 }
 
-.modalOK, .modalRetry{
+.modalOK,
+.modalRetry {
   background-color: green;
   color: white;
   position: relative;
@@ -266,7 +270,7 @@ th {
   padding: 5px;
 }
 
-.modalSave{
+.modalSave {
   background-color: green;
   color: white;
   position: relative;
@@ -274,23 +278,98 @@ th {
   padding: 5px;
 }
 
-a{
+a {
   color: white;
   text-decoration: none;
 }
 
-.saveLeftFile{
-  margin-top:1%;
+.saveLeftFile {
+  margin-top: 1%;
   margin-left: 15%;
   background-color: green;
   color: white;
   padding: 5px;
 }
 
-.saveRightFile{
+.saveRightFile {
   margin-top: 1%;
   margin-left: 50%;
   background-color: green;
   color: white;
   padding: 5px;
+}
+
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #242f3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 50%;
+  /******** <- Remove this line *********/
+  border: 4px solid #Fff;
+  animation: loader 2s infinite ease;
+}
+
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(180deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+
+  25% {
+    height: 0%;
+  }
+
+  50% {
+    height: 100%;
+  }
+
+  75% {
+    height: 100%;
+  }
+
+  100% {
+    height: 0%;
+  }
 }

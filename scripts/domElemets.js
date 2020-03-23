@@ -47,8 +47,7 @@ const clear = domElementCreator("button", "Clear", {
     disabled: "true"
 });
 const buttonDiv = domElementCreator("div", "", {
-    class: "buttonDiv",
-    id: "popup"
+    class: "buttonDiv"
 });
 const input = domElementCreator("input", "", {
     class: "searchfield",
@@ -97,8 +96,8 @@ const firstTableDiv = domElementCreator("div", "", {
 const secondTableDiv = domElementCreator("div", "", {
     class: "SecondTableDiv"
 });
-const scrollDiv = domElementCreator("div", "", {
-    class: "scrollDiv"
+const actionDiv = domElementCreator("div", "", {
+    class: "actionDiv"
 });
 const firstTable = domElementCreator("table", "", {
     class: "firstTable"
@@ -120,6 +119,14 @@ const allRightButton = domElementCreator("button", ">>", {
 });
 const allLeftButton = domElementCreator("button", "<<", {
     class: "allLeftBtn",
+    disabled: "true"
+});
+const undoButton = domElementCreator("button", "Undo", {
+    class: "undoBtn",
+    disabled: "true"
+});
+const redoButton = domElementCreator("button", "Redo", {
+    class: "redoBtn",
     disabled: "true"
 });
 const startButton = domElementCreator("button", "Start", {
@@ -196,13 +203,26 @@ const cancelButton = domElementCreator("button", "Cancel", {
 const okButton = domElementCreator("button", "OK", {
     class: "modalOK",
     style: "display: none;"
-}); //changes
+});
 
 const saveButton = domElementCreator("button", "", {
     class: "modalSave",
     id: "modalSave",
     style: "display: none;"
 });
+
+const loadingDiv = domElementCreator("div", "", {
+    class: "loader-wrapper",
+    style: "display: none;"
+})
+
+const loadingSpan = domElementCreator("span", "", {
+    class: "loader"
+})
+
+const loadingInnerSpan = domElementCreator("span", "", {
+    class: "loader-inner"
+})
 
 appendToNode(firstTableDiv, [firstTable]);
 appendToNode(secondTableDiv, [secondTable]);
@@ -211,7 +231,7 @@ appendToNode(fileDiv, [firstFileSelect, secondFileSelect, radioDiv]);
 appendToNode(firstRadioDiv, [firstFileRadio, checklabel]);
 appendToNode(secondRadioDiv, [secondFileRadio, checklabel.cloneNode(true)]);
 appendToNode(radioDiv, [firstRadioDiv, secondRadioDiv]);
-appendToNode(tableDiv, [firstTableDiv, scrollDiv, secondTableDiv]);
+appendToNode(tableDiv, [firstTableDiv, actionDiv, secondTableDiv]);
 appendToNode(searchDropdown, [optionOne, optionTwo]);
 appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown, input, searchBtn, clear, firstTableMatch, secondTableMatch]);
 appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
@@ -220,5 +240,7 @@ appendToNode(modalBody, [modalText]);
 appendToNode(modalFooter, [proceedButton, cancelButton, okButton, saveButton, retry]);
 appendToNode(modalContent, [modalHeader, modalBody, modalFooter]);
 appendToNode(modal, [modalContent]);
-appendToNode(body, [modal, buttonDiv, hr, fileDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]);
-appendToNode(scrollDiv, [startButton, br.cloneNode(true), br.cloneNode(true), rightButton, br.cloneNode(true), br.cloneNode(true), allRightButton, br.cloneNode(true), br.cloneNode(true), leftButton, br.cloneNode(true), br.cloneNode(true), allLeftButton, br.cloneNode(true), br.cloneNode(true), scrollCheckLabel, scrollCheck]);
+appendToNode(body, [modal, loadingDiv, buttonDiv, hr, fileDiv, br.cloneNode(true), hr.cloneNode(true), tableDiv, buttonDivTwo]);
+appendToNode(loadingSpan, [loadingInnerSpan]);
+appendToNode(loadingDiv, [loadingSpan]);
+appendToNode(actionDiv, [startButton, br.cloneNode(true), br.cloneNode(true), rightButton, br.cloneNode(true), br.cloneNode(true), allRightButton, br.cloneNode(true), br.cloneNode(true), leftButton, br.cloneNode(true), br.cloneNode(true), allLeftButton, br.cloneNode(true), br.cloneNode(true), undoButton, br.cloneNode(true), br.cloneNode(true), redoButton, br.cloneNode(true), br.cloneNode(true), scrollCheckLabel, scrollCheck]);
