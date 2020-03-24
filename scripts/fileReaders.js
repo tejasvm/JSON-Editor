@@ -18,7 +18,7 @@ function onReaderLoadFileOne(event) {
         retry.style.display = "inline";
     }
     fileOnePresent = true;
-    if(fileOnePresent && fileTwoPresent){
+    if (fileOnePresent && fileTwoPresent) {
         // Checks if both the files are present and enables the start button and sets the startflag to be true;
         startButton.disabled = false;
         startFlag = true;
@@ -27,7 +27,7 @@ function onReaderLoadFileOne(event) {
 
 
 function onChangeFileTwo(event) {
-     // Takes the file input from user and once the file is loaded calls the onReaderLoadFile function
+    // Takes the file input from user and once the file is loaded calls the onReaderLoadFile function
     let reader = new FileReader();
     reader.onload = onReaderLoadFileTwo;
     reader.readAsText(event.target.files[0]);
@@ -47,7 +47,7 @@ function onReaderLoadFileTwo(event) {
         cancelButton.style.display = "none";
     }
     fileTwoPresent = true;
-    if(fileOnePresent && fileTwoPresent){
+    if (fileOnePresent && fileTwoPresent) {
         // Checks if both the files are present and enables the start button and sets the startflag to be true;
         startButton.disabled = false;
         startFlag = true;

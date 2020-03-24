@@ -41,7 +41,7 @@ cancelButton.addEventListener("click", function () {
     modalText.textContent = "";
 });
 
-okButton.addEventListener("click", function () { 
+okButton.addEventListener("click", function () {
     modal.style.display = "none";
     okButton.style.display = "none";
     proceedButton.style.display = "inline";
@@ -64,6 +64,6 @@ saveButton.addEventListener("click", function () {
     proceedButton.style.display = "inline";
     cancelButton.style.display = "inline";
 })
-firstTable.addEventListener("onload", function(){
+firstTable.addEventListener("onload", function () {
     alert("haha");
 })

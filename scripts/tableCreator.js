@@ -35,7 +35,6 @@ function createTableRows(tableName, key, value, type) {
 function selectedRowsFunction(row) {
     id = row.getAttribute("id");
     selectedValues.push(id);
-    console.log("selectedValues select " + selectedValues);
     tableTwoId = id.replace("firstTable", "secondTable");
     tableOneId = id.replace("secondTable", "firstTable");
     rowTableOne = document.getElementById(tableOneId);
@@ -52,6 +51,38 @@ function selectedRowsFunction(row) {
     rowTableTwo.setAttribute("class", "active");
     rowTableTwo.onclick = function () {
         deselectedRowsFunction(this, prevclassRowOne, prevclassRowTwo);
+    }
+}
+
+function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
+    id = row.getAttribute("id");
+    tableTwoId = id.replace("firstTable", "secondTable");
+    tableOneId = id.replace("secondTable", "firstTable");
+    let index;
+    if (selectedValues.indexOf(tableOneId) != -1) {
+        index = selectedValues.indexOf(tableOneId);
+    } else {
+        index = selectedValues.indexOf(tableTwoId);
+    }
+    if (index > -1) {
+        selectedValues.splice(index, 1);
+    }
+    rowTableOne = document.getElementById(tableOneId);
+    rowTableTwo = document.getElementById(tableTwoId);
+    diffArrayIndex = -1;
+    if (temparray.length) {
+        temparray[0].style.border = null;
+        temparray[1].style.border = null;
+    }
+    rowTableOne.removeAttribute("class");
+    rowTableOne.setAttribute("class", prevclassRowOne);
+    rowTableTwo.removeAttribute("class");
+    rowTableTwo.setAttribute("class", prevclassRowTwo);
+    rowTableOne.onclick = function () {
+        selectedRowsFunction(this);
+    }
+    rowTableTwo.onclick = function () {
+        selectedRowsFunction(this);
     }
 }
 
@@ -83,37 +114,4 @@ function tablePolulator(object1PathsArray, object2PathsArray, object1ValuesArray
 
     });
     diffArray = allMoveRightArray.concat(allMoveLeftArray);
-}
-
-function deselectedRowsFunction(row, prevclassRowOne, prevclassRowTwo) {
-    id = row.getAttribute("id");
-    tableTwoId = id.replace("firstTable", "secondTable");
-    tableOneId = id.replace("secondTable", "firstTable");
-    let index;
-    if (selectedValues.indexOf(tableOneId) != -1) {
-        index = selectedValues.indexOf(tableOneId);
-    } else {
-        index = selectedValues.indexOf(tableTwoId);
-    }
-    if (index > -1) {
-        selectedValues.splice(index, 1);
-        console.log("selectedValues deselect " + selectedValues);
-    }
-    rowTableOne = document.getElementById(tableOneId);
-    rowTableTwo = document.getElementById(tableTwoId);
-    diffArrayIndex = -1;
-    if (temparray.length) {
-        temparray[0].style.border = null;
-        temparray[1].style.border = null;
-    }
-    rowTableOne.removeAttribute("class");
-    rowTableOne.setAttribute("class", prevclassRowOne);
-    rowTableTwo.removeAttribute("class");
-    rowTableTwo.setAttribute("class", prevclassRowTwo);
-    rowTableOne.onclick = function () {
-        selectedRowsFunction(this);
-    }
-    rowTableTwo.onclick = function () {
-        selectedRowsFunction(this);
-    }
 }

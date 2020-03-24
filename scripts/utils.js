@@ -1,4 +1,4 @@
-let object1PathsArray, object2PathsArray, object1ValuesArray, object2ValuesArray, tableOne, tableTwo,flag, searchValue, prevSearch, continueFlag = false;
+let object1PathsArray, object2PathsArray, object1ValuesArray, object2ValuesArray, tableOne, tableTwo, flag, searchValue, prevSearch, continueFlag = false;
 let selectedValues = [];
 let allMoveRightArray = [];
 let allMoveLeftArray = [];
@@ -30,3 +30,4 @@ let undoObjects = [];
 let redoObjects = [];
 let changeIndex = 0;
 let allChangesObjects = {};
+let undoredoIndex = 0;
