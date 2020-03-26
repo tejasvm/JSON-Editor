@@ -31,3 +31,5 @@ let redoObjects = [];
 let changeIndex = 0;
 let allChangesObjects = {};
 let undoredoIndex = 0;
+let moveFlag = false;
+let undoFlag = false;

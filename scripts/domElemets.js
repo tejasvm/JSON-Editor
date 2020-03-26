@@ -157,11 +157,11 @@ const optionTwo = domElementCreator("option", "Search by Value", {
 });
 const saveRightFile = domElementCreator("button", "Save Right File", {
     class: "saveRightFile",
-    style: "display: none;"
+    disabled: true
 });
 const saveLeftFile = domElementCreator("button", "Save Left File", {
     class: "saveLeftFile",
-    style: "display: none;"
+    disabled: true
 });
 const buttonDivTwo = domElementCreator("div", "", {
     class: "buttonDivTwo"

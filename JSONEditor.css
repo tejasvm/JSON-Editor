@@ -285,17 +285,14 @@ a {
 
 .saveLeftFile {
   margin-top: 1%;
-  margin-left: 15%;
-  background-color: green;
-  color: white;
+  margin-left: 20%;
   padding: 5px;
 }
 
 .saveRightFile {
   margin-top: 1%;
-  margin-left: 50%;
-  background-color: green;
-  color: white;
+  float: right;
+  margin-right: 20%;
   padding: 5px;
 }
 

@@ -110,70 +110,97 @@ function starter() { // The function that is called when the start button is pre
 }
 
 function moveRight(keyArray) {
-    //saveLeftFile.style.display = "inline";
-    saveRightFile.style.display = "inline";
+    saveRightFile.disabled = false;
+    saveRightFile.style.color = "white";
+    saveRightFile.style.backgroundColor = "green";
     undoButton.disabled = false;
     redoButton.disabled = false;
-    let tempArray = []
+    let beforeMoveArray = [];
+    let afterMoveArray = [];
     console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
     tempKeyArray.forEach(element => {
         console.log(element);
-        let tempObj = {}
+        let beforeMoveObj = {};
+        let afterMoveObj = {};
         tableTwoId = element.replace("firstTable", "secondTable");
         tableOneId = element.replace("secondTable", "firstTable");
         rowTableOne = document.getElementById(tableOneId);
         rowTableTwo = document.getElementById(tableTwoId);
         cellsTableOne = rowTableOne.getElementsByTagName("td");
         cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-        tempObj["tableOneId"] = tableOneId;
-        tempObj["tableTwoId"] = tableTwoId;
-        tempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
-        tempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
-        tempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
-        tempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
-        tempArray.unshift(tempObj);
+        beforeMoveObj["tableOneId"] = tableOneId;
+        beforeMoveObj["tableTwoId"] = tableTwoId;
+        beforeMoveObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        beforeMoveObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        beforeMoveObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        beforeMoveObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        beforeMoveArray.unshift(beforeMoveObj);
         cellsTableTwo[0].innerText = cellsTableOne[0].innerText;
         cellsTableTwo[1].innerText = cellsTableOne[1].innerText;
+        afterMoveObj["tableOneId"] = tableOneId;
+        afterMoveObj["tableTwoId"] = tableTwoId;
+        afterMoveObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        afterMoveObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        afterMoveObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        afterMoveObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    allChangesObjects[`${"change"+changeIndex}`] = tempArray;
+    allChangesObjects[`${"change"+changeIndex}`] = beforeMoveArray;
     changeIndex++;
     undoredoIndex = changeIndex;
+    allChangesObjects[`${"change"+changeIndex}`] = afterMoveArray;
+    changeIndex++;
+    //moveFlag = true;
 }
 
 function moveLeft(keyArray) {
-    //saveRightFile.style.display = "inline";
-    saveLeftFile.style.display = "inline";
+    saveLeftFile.disabled = false;
+    saveLeftFile.style.color = "white";
+    saveLeftFile.style.backgroundColor = "green";
     undoButton.disabled = false;
     redoButton.disabled = false;
-    let tempArray = []
+    let beforeMoveArray = [];
+    let afterMoveArray = [];
     console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
     tempKeyArray.forEach(element => {
-        let tempObj = {}
+        let beforeMoveObj = {};
+        let afterMoveObj = {};
         tableTwoId = element.replace("firstTable", "secondTable");
         tableOneId = element.replace("secondTable", "firstTable");
         rowTableOne = document.getElementById(tableOneId);
         rowTableTwo = document.getElementById(tableTwoId);
         cellsTableOne = rowTableOne.getElementsByTagName("td");
         cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-        tempObj["tableOneId"] = tableOneId;
-        tempObj["tableTwoId"] = tableTwoId;
-        tempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
-        tempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
-        tempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
-        tempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
-        tempArray.unshift(tempObj);
+        beforeMoveObj["tableOneId"] = tableOneId;
+        beforeMoveObj["tableTwoId"] = tableTwoId;
+        beforeMoveObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        beforeMoveObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        beforeMoveObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        beforeMoveObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        beforeMoveArray.unshift(beforeMoveObj);
         cellsTableOne[0].innerText = cellsTableTwo[0].innerText;
         cellsTableOne[1].innerText = cellsTableTwo[1].innerText;
+        afterMoveObj["tableOneId"] = tableOneId;
+        afterMoveObj["tableTwoId"] = tableTwoId;
+        afterMoveObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+        afterMoveObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+        afterMoveObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+        afterMoveObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+        afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    allChangesObjects[`${"change"+changeIndex}`] = tempArray;
+    allChangesObjects[`${"change"+changeIndex}`] = beforeMoveArray;
     changeIndex++;
     undoredoIndex = changeIndex;
+    allChangesObjects[`${"change"+changeIndex}`] = afterMoveArray;
+    changeIndex++;
+
+    //moveFlag = true;
 }
 
 function selectMoveRight() {
@@ -194,90 +221,143 @@ function allMoveLeft() {
 }
 
 function undo() {
+    console.log("i am called undo");
+    console.log("changeIndex");
+    console.log(changeIndex);
+    console.log("undoredoIndex");
+    console.log(undoredoIndex);
     undoredoIndex--;
+    console.log("--")
+    console.log("changeIndex");
+    console.log(changeIndex);
+    console.log("undoredoIndex");
+    console.log(undoredoIndex);
+    //let tempArray = []
     if (undoredoIndex > -1) {
         let tempObj = allChangesObjects[`${"change"+undoredoIndex}`];
-        console.log("undo");
-        console.log(tempObj);
+        // console.log("undo");
+        // console.log(tempObj);
+        // console.log(typeof (tempObj));
+        let tempKeys = Object.keys(tempObj);
+        console.log(tempKeys);
+        tempKeys.forEach(element => {
+            let changeObj = tempObj[element];
+            //let newTempObj = {}
+            // console.log("for each");
+            // console.log(changeObj)
+            // console.log(typeof (changeObj));
+            rowTableOne = document.getElementById(changeObj.tableOneId);
+            rowTableTwo = document.getElementById(changeObj.tableTwoId);
+            cellsTableOne = rowTableOne.getElementsByTagName("td");
+            cellsTableTwo = rowTableTwo.getElementsByTagName("td");
+            // newTempObj["tableOneId"] = changeObj.tableOneId;
+            // newTempObj["tableTwoId"] = changeObj.tableTwoId;
+            // newTempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+            // newTempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+            // newTempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+            // newTempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+            // tempArray.unshift(newTempObj);
+            cellsTableOne[0].innerText = changeObj.tableOneKeyValue;
+            cellsTableTwo[0].innerText = changeObj.tableTwoKeyValue;
+            cellsTableOne[1].innerText = changeObj.tableOnePathValue;
+            cellsTableTwo[1].innerText = changeObj.tableTwoPathValue;
+        });
+        // console.log(tempArray);
+        // if (moveFlag == true) {
+        //     console.log("new change")
+        //     allChangesObjects[`${"change"+changeIndex}`] = tempArray;
+        //     changeIndex++;
+        //     undoredoIndex = changeIndex;
+        //     console.log("allChangesObjects")
+        //     console.log(allChangesObjects);
+        //     console.log("moveFlag == true so ++ of change index")
+        //     console.log("changeIndex");
+        //     console.log(changeIndex);
+        //     console.log("undoredoIndex");
+        //     console.log(undoredoIndex);
+        //     moveFlag = false;
+        // }
+        // undoFlag = true;
         redoButton.disabled = false;
-        if (undoredoIndex  == 0) {
+        if (undoredoIndex == 0) {
             undoButton.disabled = true;
-            undoredoIndex--;
+            console.log("undo disabled");
         }
+
     } else {
         undoButton.disabled = true;
     }
 
-    // let noOfChangesUndo = undoObjects[0].count;
-    // console.log("undo count" + noOfChangesUndo);
-    // //console.log(noOfChangesUndo);
-    // let temparray = undoObjects.slice(0);
-    // //ar new_arr = channel_chunk.slice(0);
-    // console.log("temp");
-    // console.log(temparray);
-    // for (let index = 0; index < noOfChangesUndo; index++) {
-    //     let tempObj = {}
-    //     const element = temparray[index];
-    //     console.log(element);
-    //     console.log("array")
-    //     undoObjects.shift();
-    //     console.log(undoObjects);
-    //     rowTableOne = document.getElementById(element.tableOneId);
-    //     rowTableTwo = document.getElementById(element.tableTwoId);
-    //     cellsTableOne = rowTableOne.getElementsByTagName("td");
-    //     cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-    //     tempObj["tableOneId"] = element.tableOneId;
-    //     tempObj["tableTwoId"] = element.tableTwoId;
-    //     tempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
-    //     tempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
-    //     tempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
-    //     tempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
-    //     tempObj["count"] = element.count;
-    //     redoObjects.unshift(tempObj);
-    //     cellsTableOne[0].innerText = element.tableOneKeyValue;
-    //     cellsTableTwo[0].innerText = element.tableTwoKeyValue;
-    //     cellsTableOne[1].innerText = element.tableOnePathValue;
-    //     cellsTableTwo[1].innerText = element.tableTwoPathValue;
-    // }
+    console.log("end of undo")
 }
 
 function redo() {
+    console.log("i am called redo");
+    console.log("changeIndex");
+    console.log(changeIndex);
+    console.log("undoredoIndex");
+    console.log(undoredoIndex);
     undoredoIndex++;
-    if (undoredoIndex < changeIndex) {
+    console.log("++")
+    console.log("changeIndex");
+    console.log(changeIndex);
+    console.log("undoredoIndex");
+    console.log(undoredoIndex);
+    //let tempArray = []
+    if (undoredoIndex <= changeIndex) {
         let tempObj = allChangesObjects[`${"change"+undoredoIndex}`];
-        console.log("redo");
-        console.log(tempObj);
+        // console.log("redo");
+        // console.log(tempObj);
+        // console.log(typeof (tempObj));
+        let tempKeys = Object.keys(tempObj);
+        console.log(tempKeys);
+        tempKeys.forEach(element => {
+            //let newTempObj = {}
+            let changeObj = tempObj[element];
+            // console.log("for each");
+            // console.log(changeObj)
+            // console.log(typeof (changeObj));
+            rowTableOne = document.getElementById(changeObj.tableOneId);
+            rowTableTwo = document.getElementById(changeObj.tableTwoId);
+            cellsTableOne = rowTableOne.getElementsByTagName("td");
+            cellsTableTwo = rowTableTwo.getElementsByTagName("td");
+            // newTempObj["tableOneId"] = changeObj.tableOneId;
+            // newTempObj["tableTwoId"] = changeObj.tableTwoId;
+            // newTempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
+            // newTempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
+            // newTempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
+            // newTempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
+            // tempArray.unshift(newTempObj);
+            cellsTableOne[0].innerText = changeObj.tableOneKeyValue;
+            cellsTableTwo[0].innerText = changeObj.tableTwoKeyValue;
+            cellsTableOne[1].innerText = changeObj.tableOnePathValue;
+            cellsTableTwo[1].innerText = changeObj.tableTwoPathValue;
+        });
+        // console.log(tempArray);
+        // if (undoFlag == true) {
+        //     console.log("new change")
+        //     allChangesObjects[`${"change"+changeIndex}`] = tempArray;
+        //     changeIndex++;
+        //     undoredoIndex = changeIndex;
+        //     console.log("allChangesObjects")
+        //     console.log(allChangesObjects);
+        //     console.log("undoFlag == true so ++ of change index")
+        //     console.log("changeIndex");
+        //     console.log(changeIndex);
+        //     console.log("undoredoIndex");
+        //     console.log(undoredoIndex);
+        //     undoFlag = false;
+        // }
         undoButton.disabled = false;
-        if (undoredoIndex == changeIndex) {
+        if (undoredoIndex >= changeIndex - 1) {
             redoButton.disabled = true;
-            undoredoIndex++;
+            console.log("redo disabled");
         }
+
     } else {
         redoButton.disabled = true;
     }
-    // let noOfChangesUndo = redoObjects[0].count;
-    // console.log("undo count" + noOfChangesUndo);
-    // //console.log(noOfChangesUndo);
-    // let temparray = redoObjects.slice(0);
-    // //ar new_arr = channel_chunk.slice(0);
-    // console.log("temp");
-    // console.log(temparray);
-    // for (let index = 0; index < noOfChangesUndo; index++) {
-    //     const element = temparray[index];
-    //     redoObjects.unshift(element);
-    //     console.log(element);
-    //     console.log("array")
-    //     redoObjects.shift();
-    //     console.log(redoObjects);
-    //     rowTableOne = document.getElementById(element.tableOneId);
-    //     rowTableTwo = document.getElementById(element.tableTwoId);
-    //     cellsTableOne = rowTableOne.getElementsByTagName("td");
-    //     cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-    //     cellsTableOne[0].innerText = element.tableOneKeyValue;
-    //     cellsTableTwo[0].innerText = element.tableTwoKeyValue;
-    //     cellsTableOne[1].innerText = element.tableOnePathValue;
-    //     cellsTableTwo[1].innerText = element.tableTwoPathValue;
-    // }
+    console.log("end of redo")
 }
 
 function overflowdisable() {
