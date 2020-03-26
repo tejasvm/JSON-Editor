@@ -233,7 +233,7 @@ appendToNode(secondRadioDiv, [secondFileRadio, checklabel.cloneNode(true)]);
 appendToNode(radioDiv, [firstRadioDiv, secondRadioDiv]);
 appendToNode(tableDiv, [firstTableDiv, actionDiv, secondTableDiv]);
 appendToNode(searchDropdown, [optionOne, optionTwo]);
-appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff, searchDropdown, input, searchBtn, clear, firstTableMatch, secondTableMatch]);
+appendToNode(buttonDiv, [firstDiff, nextDiff, prevDiff, lastDiff,clear ,searchBtn ,input , searchDropdown, firstTableMatch, secondTableMatch]);
 appendToNode(buttonDivTwo, [saveLeftFile, saveRightFile]);
 appendToNode(modalHeader, [closeSign, modalHeading]);
 appendToNode(modalBody, [modalText]);
