@@ -117,6 +117,10 @@ function moveRight(keyArray) {
     redoButton.disabled = false;
     let beforeMoveArray = [];
     let afterMoveArray = [];
+    if(undoredoFlag == true){
+        changeIndex = undoredoIndex;
+        undoredoFlag = false;
+    }
     console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
@@ -164,6 +168,10 @@ function moveLeft(keyArray) {
     redoButton.disabled = false;
     let beforeMoveArray = [];
     let afterMoveArray = [];
+    if(undoredoFlag == true){
+        changeIndex = undoredoIndex;
+        undoredoFlag = false;
+    }
     console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
@@ -228,6 +236,12 @@ function undo() {
     console.log(undoredoIndex);
     undoredoIndex--;
     console.log("--")
+    if(undoredoIndex % 2 == 0){
+        console.log(changeIndex);
+        console.log("i am even")
+      }else{
+          undo();
+      }
     console.log("changeIndex");
     console.log(changeIndex);
     console.log("undoredoIndex");
@@ -277,13 +291,13 @@ function undo() {
         //     console.log(undoredoIndex);
         //     moveFlag = false;
         // }
-        // undoFlag = true;
+        
         redoButton.disabled = false;
         if (undoredoIndex == 0) {
             undoButton.disabled = true;
             console.log("undo disabled");
         }
-
+        undoredoFlag = true;
     } else {
         undoButton.disabled = true;
     }
@@ -299,6 +313,12 @@ function redo() {
     console.log(undoredoIndex);
     undoredoIndex++;
     console.log("++")
+    if(undoredoIndex % 2 != 0){
+        console.log(undoredoIndex);
+        console.log("i am odd")
+      }else{
+          redo();
+      }
     console.log("changeIndex");
     console.log(changeIndex);
     console.log("undoredoIndex");
@@ -334,26 +354,26 @@ function redo() {
             cellsTableTwo[1].innerText = changeObj.tableTwoPathValue;
         });
         // console.log(tempArray);
-        // if (undoFlag == true) {
+        // if (undoredoFlag == true) {
         //     console.log("new change")
         //     allChangesObjects[`${"change"+changeIndex}`] = tempArray;
         //     changeIndex++;
         //     undoredoIndex = changeIndex;
         //     console.log("allChangesObjects")
         //     console.log(allChangesObjects);
-        //     console.log("undoFlag == true so ++ of change index")
+        //     console.log("undoredoFlag == true so ++ of change index")
         //     console.log("changeIndex");
         //     console.log(changeIndex);
         //     console.log("undoredoIndex");
         //     console.log(undoredoIndex);
-        //     undoFlag = false;
+        //     undoredoFlag = false;
         // }
         undoButton.disabled = false;
         if (undoredoIndex >= changeIndex - 1) {
             redoButton.disabled = true;
             console.log("redo disabled");
         }
-
+        undoredoFlag = true;
     } else {
         redoButton.disabled = true;
     }
