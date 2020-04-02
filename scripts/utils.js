@@ -30,4 +30,5 @@ let changeIndex = 0;
 let actions = {
     undoStack: [],
     redoStack: []
-}
+};
+let undoFlag = false;

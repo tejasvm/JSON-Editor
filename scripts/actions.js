@@ -111,12 +111,16 @@ function starter() { // The function that is called when the start button is pre
 
 function moveRight(keyArray) {
     if (changeIndex < 0) {
+        actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
+        actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
         changeIndex = 0;
+    } else {
+        actions["undoStack"] = actions["undoStack"].slice(0, changeIndex);
+        actions["redoStack"] = actions["redoStack"].slice(0, changeIndex);
     }
-    actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
-    actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
-    //console.log(actions["undoStack"]);
-    console.log(actions["redoStack"]);
+    // console.log(actions["undoStack"]);
+    // console.log(actions["redoStack"]);
+    changeIndex++;
     saveRightFile.disabled = false;
     saveRightFile.style.color = "white";
     saveRightFile.style.backgroundColor = "green";
@@ -156,17 +160,21 @@ function moveRight(keyArray) {
     });
     actions["undoStack"].splice(changeIndex, 0, beforeMoveArray);
     actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
-    changeIndex++;
+
 }
 
 function moveLeft(keyArray) {
     if (changeIndex < 0) {
+        actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
+        actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
         changeIndex = 0;
+    } else {
+        actions["undoStack"] = actions["undoStack"].slice(0, changeIndex);
+        actions["redoStack"] = actions["redoStack"].slice(0, changeIndex);
     }
-    actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
-    actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
-    //console.log(actions["undoStack"]);
-    //console.log(actions["redoStack"]);
+    // console.log(actions["undoStack"]);
+    // console.log(actions["redoStack"]);
+    changeIndex++;
     saveLeftFile.disabled = false;
     saveLeftFile.style.color = "white";
     saveLeftFile.style.backgroundColor = "green";
@@ -205,7 +213,7 @@ function moveLeft(keyArray) {
     });
     actions["undoStack"].splice(changeIndex, 0, beforeMoveObj);
     actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
-    changeIndex++;
+
 }
 
 function selectMoveRight() {
@@ -248,12 +256,13 @@ function undo() {
         redoButton.disabled = false;
         if (changeIndex == 0) {
             undoButton.disabled = true;
-            changeIndex--;
+            //changeIndex--;
             console.log("--")
             console.log("changeIndex");
             console.log(changeIndex);
             console.log("undo disabled");
         }
+        undoFlag = true;
     } else {
         undoButton.disabled = true;
     }
@@ -264,11 +273,15 @@ function redo() {
     console.log("i am called redo");
     console.log("changeIndex");
     console.log(changeIndex);
-    changeIndex++;
+    if (undoFlag == true) {
+        undoFlag = false;
+    } else {
+        changeIndex++;
+    }
     console.log("++")
     console.log("changeIndex");
     console.log(changeIndex);
-    if (changeIndex <= actions["undoStack"].length) {
+    if (changeIndex <= actions["undoStack"].length - 1) {
         let tempObj = actions["redoStack"][changeIndex];
         console.log(tempObj);
         tempObj.forEach(element => {
