@@ -110,6 +110,13 @@ function starter() { // The function that is called when the start button is pre
 }
 
 function moveRight(keyArray) {
+    if (changeIndex < 0) {
+        changeIndex = 0;
+    }
+    actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
+    actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
+    //console.log(actions["undoStack"]);
+    console.log(actions["redoStack"]);
     saveRightFile.disabled = false;
     saveRightFile.style.color = "white";
     saveRightFile.style.backgroundColor = "green";
@@ -117,11 +124,6 @@ function moveRight(keyArray) {
     redoButton.disabled = false;
     let beforeMoveArray = [];
     let afterMoveArray = [];
-    if(undoredoFlag == true){
-        changeIndex = undoredoIndex;
-        undoredoFlag = false;
-    }
-    console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
     tempKeyArray.forEach(element => {
@@ -152,15 +154,19 @@ function moveRight(keyArray) {
         afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    allChangesObjects[`${"change"+changeIndex}`] = beforeMoveArray;
+    actions["undoStack"].splice(changeIndex, 0, beforeMoveArray);
+    actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
     changeIndex++;
-    undoredoIndex = changeIndex;
-    allChangesObjects[`${"change"+changeIndex}`] = afterMoveArray;
-    changeIndex++;
-    //moveFlag = true;
 }
 
 function moveLeft(keyArray) {
+    if (changeIndex < 0) {
+        changeIndex = 0;
+    }
+    actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
+    actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
+    //console.log(actions["undoStack"]);
+    //console.log(actions["redoStack"]);
     saveLeftFile.disabled = false;
     saveLeftFile.style.color = "white";
     saveLeftFile.style.backgroundColor = "green";
@@ -168,11 +174,6 @@ function moveLeft(keyArray) {
     redoButton.disabled = false;
     let beforeMoveArray = [];
     let afterMoveArray = [];
-    if(undoredoFlag == true){
-        changeIndex = undoredoIndex;
-        undoredoFlag = false;
-    }
-    console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
     console.log(keyArray);
     tempKeyArray.forEach(element => {
@@ -202,13 +203,9 @@ function moveLeft(keyArray) {
         afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    allChangesObjects[`${"change"+changeIndex}`] = beforeMoveArray;
+    actions["undoStack"].splice(changeIndex, 0, beforeMoveObj);
+    actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
     changeIndex++;
-    undoredoIndex = changeIndex;
-    allChangesObjects[`${"change"+changeIndex}`] = afterMoveArray;
-    changeIndex++;
-
-    //moveFlag = true;
 }
 
 function selectMoveRight() {
@@ -232,76 +229,34 @@ function undo() {
     console.log("i am called undo");
     console.log("changeIndex");
     console.log(changeIndex);
-    console.log("undoredoIndex");
-    console.log(undoredoIndex);
-    undoredoIndex--;
+    changeIndex--;
     console.log("--")
-    if(undoredoIndex % 2 == 0){
-        console.log(changeIndex);
-        console.log("i am even")
-      }else{
-          undo();
-      }
     console.log("changeIndex");
     console.log(changeIndex);
-    console.log("undoredoIndex");
-    console.log(undoredoIndex);
-    //let tempArray = []
-    if (undoredoIndex > -1) {
-        let tempObj = allChangesObjects[`${"change"+undoredoIndex}`];
-        // console.log("undo");
-        // console.log(tempObj);
-        // console.log(typeof (tempObj));
-        let tempKeys = Object.keys(tempObj);
-        console.log(tempKeys);
-        tempKeys.forEach(element => {
-            let changeObj = tempObj[element];
-            //let newTempObj = {}
-            // console.log("for each");
-            // console.log(changeObj)
-            // console.log(typeof (changeObj));
-            rowTableOne = document.getElementById(changeObj.tableOneId);
-            rowTableTwo = document.getElementById(changeObj.tableTwoId);
+    if (changeIndex > -1) {
+        let tempObj = actions["undoStack"][changeIndex];
+        tempObj.forEach(element => {
+            rowTableOne = document.getElementById(element.tableOneId);
+            rowTableTwo = document.getElementById(element.tableTwoId);
             cellsTableOne = rowTableOne.getElementsByTagName("td");
             cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-            // newTempObj["tableOneId"] = changeObj.tableOneId;
-            // newTempObj["tableTwoId"] = changeObj.tableTwoId;
-            // newTempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
-            // newTempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
-            // newTempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
-            // newTempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
-            // tempArray.unshift(newTempObj);
-            cellsTableOne[0].innerText = changeObj.tableOneKeyValue;
-            cellsTableTwo[0].innerText = changeObj.tableTwoKeyValue;
-            cellsTableOne[1].innerText = changeObj.tableOnePathValue;
-            cellsTableTwo[1].innerText = changeObj.tableTwoPathValue;
+            cellsTableOne[0].innerText = element.tableOneKeyValue;
+            cellsTableTwo[0].innerText = element.tableTwoKeyValue;
+            cellsTableOne[1].innerText = element.tableOnePathValue;
+            cellsTableTwo[1].innerText = element.tableTwoPathValue;
         });
-        // console.log(tempArray);
-        // if (moveFlag == true) {
-        //     console.log("new change")
-        //     allChangesObjects[`${"change"+changeIndex}`] = tempArray;
-        //     changeIndex++;
-        //     undoredoIndex = changeIndex;
-        //     console.log("allChangesObjects")
-        //     console.log(allChangesObjects);
-        //     console.log("moveFlag == true so ++ of change index")
-        //     console.log("changeIndex");
-        //     console.log(changeIndex);
-        //     console.log("undoredoIndex");
-        //     console.log(undoredoIndex);
-        //     moveFlag = false;
-        // }
-        
         redoButton.disabled = false;
-        if (undoredoIndex == 0) {
+        if (changeIndex == 0) {
             undoButton.disabled = true;
+            changeIndex--;
+            console.log("--")
+            console.log("changeIndex");
+            console.log(changeIndex);
             console.log("undo disabled");
         }
-        undoredoFlag = true;
     } else {
         undoButton.disabled = true;
     }
-
     console.log("end of undo")
 }
 
@@ -309,71 +264,32 @@ function redo() {
     console.log("i am called redo");
     console.log("changeIndex");
     console.log(changeIndex);
-    console.log("undoredoIndex");
-    console.log(undoredoIndex);
-    undoredoIndex++;
+    changeIndex++;
     console.log("++")
-    if(undoredoIndex % 2 != 0){
-        console.log(undoredoIndex);
-        console.log("i am odd")
-      }else{
-          redo();
-      }
     console.log("changeIndex");
     console.log(changeIndex);
-    console.log("undoredoIndex");
-    console.log(undoredoIndex);
-    //let tempArray = []
-    if (undoredoIndex <= changeIndex) {
-        let tempObj = allChangesObjects[`${"change"+undoredoIndex}`];
-        // console.log("redo");
-        // console.log(tempObj);
-        // console.log(typeof (tempObj));
-        let tempKeys = Object.keys(tempObj);
-        console.log(tempKeys);
-        tempKeys.forEach(element => {
-            //let newTempObj = {}
-            let changeObj = tempObj[element];
-            // console.log("for each");
-            // console.log(changeObj)
-            // console.log(typeof (changeObj));
-            rowTableOne = document.getElementById(changeObj.tableOneId);
-            rowTableTwo = document.getElementById(changeObj.tableTwoId);
+    if (changeIndex <= actions["undoStack"].length) {
+        let tempObj = actions["redoStack"][changeIndex];
+        console.log(tempObj);
+        tempObj.forEach(element => {
+            rowTableOne = document.getElementById(element.tableOneId);
+            rowTableTwo = document.getElementById(element.tableTwoId);
             cellsTableOne = rowTableOne.getElementsByTagName("td");
             cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-            // newTempObj["tableOneId"] = changeObj.tableOneId;
-            // newTempObj["tableTwoId"] = changeObj.tableTwoId;
-            // newTempObj["tableOneKeyValue"] = cellsTableOne[0].innerText;
-            // newTempObj["tableTwoKeyValue"] = cellsTableTwo[0].innerText;
-            // newTempObj["tableOnePathValue"] = cellsTableOne[1].innerText;
-            // newTempObj["tableTwoPathValue"] = cellsTableTwo[1].innerText;
-            // tempArray.unshift(newTempObj);
-            cellsTableOne[0].innerText = changeObj.tableOneKeyValue;
-            cellsTableTwo[0].innerText = changeObj.tableTwoKeyValue;
-            cellsTableOne[1].innerText = changeObj.tableOnePathValue;
-            cellsTableTwo[1].innerText = changeObj.tableTwoPathValue;
+            cellsTableOne[0].innerText = element.tableOneKeyValue;
+            cellsTableTwo[0].innerText = element.tableTwoKeyValue;
+            cellsTableOne[1].innerText = element.tableOnePathValue;
+            cellsTableTwo[1].innerText = element.tableTwoPathValue;
         });
-        // console.log(tempArray);
-        // if (undoredoFlag == true) {
-        //     console.log("new change")
-        //     allChangesObjects[`${"change"+changeIndex}`] = tempArray;
-        //     changeIndex++;
-        //     undoredoIndex = changeIndex;
-        //     console.log("allChangesObjects")
-        //     console.log(allChangesObjects);
-        //     console.log("undoredoFlag == true so ++ of change index")
-        //     console.log("changeIndex");
-        //     console.log(changeIndex);
-        //     console.log("undoredoIndex");
-        //     console.log(undoredoIndex);
-        //     undoredoFlag = false;
-        // }
         undoButton.disabled = false;
-        if (undoredoIndex >= changeIndex - 1) {
+        if (changeIndex >= actions["undoStack"].length - 1) {
             redoButton.disabled = true;
+            changeIndex++;
+            console.log("++")
+            console.log("changeIndex");
+            console.log(changeIndex);
             console.log("redo disabled");
         }
-        undoredoFlag = true;
     } else {
         redoButton.disabled = true;
     }
