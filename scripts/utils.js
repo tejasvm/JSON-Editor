@@ -26,9 +26,5 @@ let firstTableObj;
 let secondTableObj;
 let fileOnePresent = false;
 let fileTwoPresent = false;
-let changeIndex = 0;
-let actions = {
-    undoStack: [],
-    redoStack: []
-};
-let undoFlag = false;
+let arrayTop=-1;           
+let changesArray = [];
