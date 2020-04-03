@@ -211,7 +211,7 @@ function moveLeft(keyArray) {
         afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    actions["undoStack"].splice(changeIndex, 0, beforeMoveObj);
+    actions["undoStack"].splice(changeIndex, 0, beforeMoveArray);
     actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
 
 }
@@ -273,11 +273,7 @@ function redo() {
     console.log("i am called redo");
     console.log("changeIndex");
     console.log(changeIndex);
-    if (undoFlag == true) {
-        undoFlag = false;
-    } else {
-        changeIndex++;
-    }
+    undoFlag == true ? undoFlag = false : changeIndex++;
     console.log("++")
     console.log("changeIndex");
     console.log(changeIndex);
