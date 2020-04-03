@@ -110,28 +110,16 @@ function starter() { // The function that is called when the start button is pre
 }
 
 function moveRight(keyArray) {
-    if (changeIndex < 0) {
-        actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
-        actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
-        changeIndex = 0;
-    } else {
-        actions["undoStack"] = actions["undoStack"].slice(0, changeIndex);
-        actions["redoStack"] = actions["redoStack"].slice(0, changeIndex);
-    }
-    // console.log(actions["undoStack"]);
-    // console.log(actions["redoStack"]);
-    changeIndex++;
     saveRightFile.disabled = false;
     saveRightFile.style.color = "white";
     saveRightFile.style.backgroundColor = "green";
     undoButton.disabled = false;
-    redoButton.disabled = false;
+    redoButton.disabled = true;
     let beforeMoveArray = [];
     let afterMoveArray = [];
+    console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
-    console.log(keyArray);
     tempKeyArray.forEach(element => {
-        console.log(element);
         let beforeMoveObj = {};
         let afterMoveObj = {};
         tableTwoId = element.replace("firstTable", "secondTable");
@@ -158,32 +146,26 @@ function moveRight(keyArray) {
         afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    actions["undoStack"].splice(changeIndex, 0, beforeMoveArray);
-    actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
-
+    arrayTop += 1;
+    changesArray.splice(arrayTop);
+    changesArray[arrayTop] = beforeMoveArray;
+    arrayTop += 1;
+    changesArray[arrayTop] = afterMoveArray;
+    console.log("changesArray");
+    console.log(changesArray);
+    console.log("array top " + arrayTop);
 }
 
 function moveLeft(keyArray) {
-    if (changeIndex < 0) {
-        actions["undoStack"] = actions["undoStack"].slice(-1, changeIndex);
-        actions["redoStack"] = actions["redoStack"].slice(-1, changeIndex);
-        changeIndex = 0;
-    } else {
-        actions["undoStack"] = actions["undoStack"].slice(0, changeIndex);
-        actions["redoStack"] = actions["redoStack"].slice(0, changeIndex);
-    }
-    // console.log(actions["undoStack"]);
-    // console.log(actions["redoStack"]);
-    changeIndex++;
     saveLeftFile.disabled = false;
     saveLeftFile.style.color = "white";
     saveLeftFile.style.backgroundColor = "green";
     undoButton.disabled = false;
-    redoButton.disabled = false;
+    redoButton.disabled = true;
     let beforeMoveArray = [];
     let afterMoveArray = [];
+    console.log("move count" + keyArray.length);
     let tempKeyArray = keyArray.slice(0);
-    console.log(keyArray);
     tempKeyArray.forEach(element => {
         let beforeMoveObj = {};
         let afterMoveObj = {};
@@ -211,9 +193,14 @@ function moveLeft(keyArray) {
         afterMoveArray.unshift(afterMoveObj);
         rowTableOne.click();
     });
-    actions["undoStack"].splice(changeIndex, 0, beforeMoveArray);
-    actions["redoStack"].splice(changeIndex, 0, afterMoveArray);
-
+    arrayTop += 1;
+    changesArray.splice(arrayTop);
+    changesArray[arrayTop] = beforeMoveArray;
+    arrayTop += 1;
+    changesArray[arrayTop] = afterMoveArray;
+    console.log("changesArray");
+    console.log(changesArray);
+    console.log("array top " + arrayTop);
 }
 
 function selectMoveRight() {
@@ -234,75 +221,62 @@ function allMoveLeft() {
 }
 
 function undo() {
-    console.log("i am called undo");
-    console.log("changeIndex");
-    console.log(changeIndex);
-    changeIndex--;
-    console.log("--")
-    console.log("changeIndex");
-    console.log(changeIndex);
-    if (changeIndex > -1) {
-        let tempObj = actions["undoStack"][changeIndex];
-        tempObj.forEach(element => {
-            rowTableOne = document.getElementById(element.tableOneId);
-            rowTableTwo = document.getElementById(element.tableTwoId);
-            cellsTableOne = rowTableOne.getElementsByTagName("td");
+    console.log("Undo called");
+    if (arrayTop > 0) {
+        let beforeChange = arrayTop - 1; //beforeChange refers to the index which contains values of both tables before the change
+        let temporaryArray = changesArray[beforeChange]; //a temporary array is created which refers to the array containing previous values of both tables
+        console.log(temporaryArray);
+        temporaryArray.forEach(change => { //forEach loop to run through the array and set the content of the tables to its previous values
+            rowTableOne = document.getElementById(change.tableOneId); //obtaining particular row based on the ID of the change element
+            rowTableTwo = document.getElementById(change.tableTwoId);
+            cellsTableOne = rowTableOne.getElementsByTagName("td"); //obtaining an HTML collection of all the td's present in the row
             cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-            cellsTableOne[0].innerText = element.tableOneKeyValue;
-            cellsTableTwo[0].innerText = element.tableTwoKeyValue;
-            cellsTableOne[1].innerText = element.tableOnePathValue;
-            cellsTableTwo[1].innerText = element.tableTwoPathValue;
+            cellsTableOne[0].innerText = change.tableOneKeyValue; //changing the innerText of the HTML collection to the values present in change element
+            cellsTableTwo[0].innerText = change.tableTwoKeyValue;
+            cellsTableOne[1].innerText = change.tableOnePathValue;
+            cellsTableTwo[1].innerText = change.tableTwoPathValue;
         });
         redoButton.disabled = false;
-        if (changeIndex == 0) {
+        arrayTop = beforeChange - 1;
+        console.log("arrayTop");
+        console.log(arrayTop);
+        if (arrayTop == -1) {
             undoButton.disabled = true;
-            //changeIndex--;
-            console.log("--")
-            console.log("changeIndex");
-            console.log(changeIndex);
-            console.log("undo disabled");
         }
-        undoFlag = true;
     } else {
         undoButton.disabled = true;
     }
-    console.log("end of undo")
+    console.log("undo end");
 }
 
 function redo() {
-    console.log("i am called redo");
-    console.log("changeIndex");
-    console.log(changeIndex);
-    undoFlag == true ? undoFlag = false : changeIndex++;
-    console.log("++")
-    console.log("changeIndex");
-    console.log(changeIndex);
-    if (changeIndex <= actions["undoStack"].length - 1) {
-        let tempObj = actions["redoStack"][changeIndex];
-        console.log(tempObj);
-        tempObj.forEach(element => {
-            rowTableOne = document.getElementById(element.tableOneId);
-            rowTableTwo = document.getElementById(element.tableTwoId);
+    console.log("redo called");
+    console.log("arrayTop" + arrayTop);
+    if (arrayTop <= changesArray.length) {
+        arrayTop += 2;
+        let temporaryArray = changesArray[arrayTop];
+        console.log(temporaryArray);
+        temporaryArray.forEach(change => {
+            rowTableOne = document.getElementById(change.tableOneId);
+            rowTableTwo = document.getElementById(change.tableTwoId);
             cellsTableOne = rowTableOne.getElementsByTagName("td");
             cellsTableTwo = rowTableTwo.getElementsByTagName("td");
-            cellsTableOne[0].innerText = element.tableOneKeyValue;
-            cellsTableTwo[0].innerText = element.tableTwoKeyValue;
-            cellsTableOne[1].innerText = element.tableOnePathValue;
-            cellsTableTwo[1].innerText = element.tableTwoPathValue;
+            cellsTableOne[0].innerText = change.tableOneKeyValue;
+            cellsTableTwo[0].innerText = change.tableTwoKeyValue;
+            cellsTableOne[1].innerText = change.tableOnePathValue;
+            cellsTableTwo[1].innerText = change.tableTwoPathValue;
         });
         undoButton.disabled = false;
-        if (changeIndex >= actions["undoStack"].length - 1) {
+        console.log("arrayTop");
+        console.log(arrayTop);
+        if (arrayTop >= changesArray.length - 1) {
             redoButton.disabled = true;
-            changeIndex++;
-            console.log("++")
-            console.log("changeIndex");
-            console.log(changeIndex);
             console.log("redo disabled");
         }
     } else {
         redoButton.disabled = true;
     }
-    console.log("end of redo")
+    console.log("redo end");
 }
 
 function overflowdisable() {
